@@ -1,4 +1,4 @@
-import type { FC, LegacyRef, CSSProperties, MutableRefObject } from 'react'
+import type { FC, CSSProperties, MutableRefObject } from 'react'
 import { TransitionStatus } from 'react-transition-group'
 import { createTransition } from '../utils'
 import { forwardRef } from 'react'

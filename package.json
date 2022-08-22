@@ -1,10 +1,11 @@
 {
 	"name": "transitions-kit",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/denchiklut/transitions-kit.git"
+		"url": "git+https://github.com/denchiklut/transitions-kit"
 	},
+	"homepage": "https://denchiklut.github.io/transitions-kit",
 	"license": "MIT",
 	"main": "dist/index.cjs.js",
 	"module": "dist/index.esm.js",
@@ -17,24 +18,39 @@
 	"author": "Karl: ollylut@gmail.com",
 	"scripts": {
 		"start": "NODE_ENV=development webpack serve --mode development",
-		"build": "rm -rf dist && NODE_ENV=production && rollup -c"
+		"build": "rm -rf dist && NODE_ENV=production && rollup -c",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook",
+		"deploy": "gh-pages -d storybook-static"
 	},
 	"dependencies": {
 		"react-transition-group": "^4.4.2"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^22.0.1",
 		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@rollup/plugin-typescript": "^8.3.3",
+		"@storybook/addon-a11y": "^6.5.10",
+		"@storybook/addon-actions": "^6.5.10",
+		"@storybook/addon-essentials": "^6.5.10",
+		"@storybook/addon-interactions": "^6.5.10",
+		"@storybook/addon-links": "^6.5.10",
+		"@storybook/builder-webpack5": "^6.5.10",
+		"@storybook/manager-webpack5": "^6.5.10",
+		"@storybook/react": "^6.5.10",
+		"@storybook/testing-library": "^0.0.13",
 		"@types/react": "^18.0.15",
 		"@types/react-transition-group": "^4.4.5",
+		"gh-pages": "^4.0.0",
 		"prettier": "^2.7.1",
 		"rollup": "^2.77.2",
 		"rollup-plugin-peer-deps-external": "^2.2.4",
 		"rollup-plugin-terser": "^7.0.2",
+		"storybook-dark-mode": "^1.1.0",
 		"tslib": "^2.4.0",
 		"typescript": "^4.7.4"
 	},

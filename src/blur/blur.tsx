@@ -1,15 +1,7 @@
 import { type FC, type CSSProperties, cloneElement } from 'react'
 import { Transition, type TransitionStatus } from 'react-transition-group'
 import { createTransition } from '../utils'
-
-interface Props {
-	in: boolean
-	timeout?: number
-	unmountOnExit?: boolean
-	mountOnEnter?: boolean
-	children: JSX.Element
-	radius?: number
-}
+import { BlurProps } from './blur.types'
 
 const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entering: { opacity: 1, filter: 'blur(0)' },
@@ -18,7 +10,13 @@ const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	exited: { opacity: 0 }
 }
 
-export const Blur: FC<Props> = ({ in: inProp, timeout = 300, radius = 25, children, ...props }) => {
+export const Blur: FC<BlurProps> = ({
+	in: inProp,
+	timeout = 300,
+	radius = 25,
+	children,
+	...props
+}) => {
 	const style: CSSProperties = {
 		opacity: 0,
 		width: '100%',

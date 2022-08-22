@@ -1,16 +1,9 @@
-import { FC, useRef } from 'react'
+import { type FC, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import { CollapseRoot, CollapseWrapper, CollapseWrapperInner } from './styles'
+import type { CollapseProps } from './collapse.types'
 
-interface Props {
-	in: boolean
-	children: JSX.Element
-	orientation?: 'horizontal' | 'vertical'
-	collapsedSize?: number | string
-	timeout?: number
-	unmountOnExit?: boolean
-}
-export const Collapse: FC<Props> = ({
+export const Collapse: FC<CollapseProps> = ({
 	in: inProp,
 	orientation = 'vertical',
 	collapsedSize: collapsedSizeProp = '0px',
