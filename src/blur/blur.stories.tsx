@@ -4,7 +4,12 @@ import { useState } from 'react'
 
 export default {
 	component: Blur,
-	title: 'Transitions/Blur'
+	title: 'Transitions/Blur',
+	argTypes: {
+		in: {
+			control: false
+		}
+	}
 }
 
 const Template: Story<BlurProps> = ({ in: inProp, ...props }) => {
