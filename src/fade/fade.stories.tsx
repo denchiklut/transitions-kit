@@ -24,22 +24,27 @@ Basic.parameters = {
 		source: {
 			code: `
 <Fade in={open} timeout={500}>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad distinctio
-    dolorem maiores necessitatibus nemo rerum sit ullam vel. Incidunt, ipsum maiores omnis
-    porro possimus recusandae repellat sequi similique.
-  </p>
+  <div style={{ 
+      width: 250, 
+      height: 250, 
+      background: '#222'
+    }}
+  />
 </Fade>`
 		}
 	}
 }
 Basic.args = {
-	timeout: 500,
+	timeout: 1000,
+	mountOnEnter: true,
+	unmountOnExit: true,
 	children: (
-		<div style={{ width: 200 }}>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad distinctio
-			dolorem maiores necessitatibus nemo rerum sit ullam vel. Incidunt, ipsum maiores omnis
-			porro possimus recusandae repellat sequi similique.
-		</div>
+		<div
+			style={{
+				width: 250,
+				height: 250,
+				background: '#222'
+			}}
+		/>
 	)
 }
