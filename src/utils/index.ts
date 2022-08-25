@@ -1,1 +1,1 @@
-export * from './transition.util'
+export * from './transitions'

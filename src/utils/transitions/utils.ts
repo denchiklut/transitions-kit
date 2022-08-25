@@ -1,3 +1,5 @@
+export const reflow = (node: Element) => node.scrollTop
+
 interface Options {
 	duration?: number
 }
