@@ -1,24 +1,14 @@
-import { cloneElement, forwardRef, useRef } from 'react'
-import { reflow, getTransitionProps } from '../utils'
-import { Transition } from 'react-transition-group'
-import { createTransition } from '../utils'
-import useForkRef from '../utils/ref'
+import { cloneElement, FC, CSSProperties } from 'react'
+import { Transition, TransitionStatus } from 'react-transition-group'
+import { createTransition, reflow } from '../utils'
+import { FadeProps } from './fade.types'
 
-const styles = {
-	entering: {
-		opacity: 1
-	},
-	entered: {
-		opacity: 1
-	}
+const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
+	entering: { opacity: 1 },
+	entered: { opacity: 1 }
 }
 
-export const Fade = forwardRef((props: any, ref) => {
-	const defaultTimeout = {
-		enter: 225,
-		exit: 195
-	}
-
+export const Fade: FC<FadeProps> = props => {
 	const {
 		addEndListener,
 		appear = true,
@@ -32,90 +22,41 @@ export const Fade = forwardRef((props: any, ref) => {
 		onExited,
 		onExiting,
 		style,
-		timeout = defaultTimeout,
+		timeout,
 		...other
 	} = props
 
-	const enableStrictModeCompat = true
-	const nodeRef = useRef(null)
-	const foreignRef = useForkRef(children.ref, ref)
-	const handleRef = useForkRef(nodeRef, foreignRef)
+	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
+		reflow(node)
 
-	const normalizedTransitionCallback = callback => maybeIsAppearing => {
-		if (callback) {
-			const node = nodeRef.current
+		node.style.webkitTransition = createTransition('opacity', { duration: timeout })
+		node.style.transition = createTransition('opacity', { duration: timeout })
 
-			// onEnterXxx and onExitXxx callbacks have a different arguments.length value.
-			if (maybeIsAppearing === undefined) {
-				callback(node)
-			} else {
-				callback(node, maybeIsAppearing)
-			}
-		}
+		onEnter?.(node, isAppearing)
 	}
 
-	// const handleEntering = normalizedTransitionCallback(onEntering)
-
-	const handleEnter = normalizedTransitionCallback((node, isAppearing) => {
-		reflow(node) // So the animation always start from the start.
-
-		const transitionProps = getTransitionProps(
-			{ style, timeout, easing },
-			{
-				mode: 'enter'
-			}
-		)
-
-		// node.style.webkitTransition = theme.transitions.create('opacity', transitionProps)
+	const handleExit = (node: HTMLElement) => {
 		node.style.webkitTransition = createTransition('opacity', { duration: timeout })
 		node.style.transition = createTransition('opacity', { duration: timeout })
 
-		if (onEnter) {
-			onEnter(node, isAppearing)
-		}
-	})
+		onExit?.(node)
+	}
 
-	// const handleEntered = normalizedTransitionCallback(onEntered)
-
-	// const handleExiting = normalizedTransitionCallback(onExiting)
-
-	const handleExit = normalizedTransitionCallback(node => {
-		const transitionProps = getTransitionProps(
-			{ style, timeout, easing },
-			{
-				mode: 'exit'
-			}
-		)
-
-		node.style.webkitTransition = createTransition('opacity', { duration: timeout })
-		node.style.transition = createTransition('opacity', { duration: timeout })
-
-		if (onExit) {
-			onExit(node)
-		}
-	})
-
-	const handleExited = normalizedTransitionCallback(onExited)
-
-	const handleAddEndListener = next => {
-		if (addEndListener) {
-			// Old call signature before `react-transition-group` implemented `nodeRef`
-			addEndListener(nodeRef.current, next)
-		}
+	const handleAddEnd = (node: HTMLElement, next: () => void) => {
+		addEndListener?.(node, next)
 	}
 
 	return (
 		<Transition
-			appear={appear}
 			in={inProp}
-			nodeRef={enableStrictModeCompat ? nodeRef : undefined}
-			onEnter={handleEnter}
-			onEntered={onEntered}
-			onEntering={onEntering}
+			appear={appear}
 			onExit={handleExit}
-			onExited={handleExited}
+			onEnter={handleEnter}
+			addEndListener={handleAddEnd}
+			onEntering={onEntering}
+			onEntered={onEntered}
 			onExiting={onExiting}
-			addEndListener={handleAddEndListener}
+			onExited={onExited}
 			timeout={timeout}
 			{...other}
 		>
@@ -127,10 +68,9 @@ export const Fade = forwardRef((props: any, ref) => {
 						...styles[state],
 						...style,
 						...children.props.style
-					},
-					ref: handleRef
+					}
 				})
 			}
 		</Transition>
 	)
-})
+}

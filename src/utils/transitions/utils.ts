@@ -1,33 +1,15 @@
-import { CSSProperties } from 'react'
-
 export const reflow = (node: Element) => node.scrollTop
 
-interface ComponentProps {
-	easing: string | { enter?: string; exit?: string } | undefined
-	style: CSSProperties | undefined
-	timeout: number | { enter?: number; exit?: number }
-}
-
 interface Options {
-	mode: 'enter' | 'exit'
+	duration?: number
 }
-
-interface TransitionProps {
-	duration: string | number
-	easing: string | undefined
-	delay: string | undefined
-}
-
-export function getTransitionProps(props: ComponentProps, options: Options): TransitionProps {
-	const { timeout, easing, style = {} } = props
-
-	return {
-		duration:
-			style.transitionDuration ??
-			(typeof timeout === 'number' ? timeout : timeout[options.mode] || 0),
-		easing:
-			style.transitionTimingFunction ??
-			(typeof easing === 'object' ? easing[options.mode] : easing),
-		delay: style.transitionDelay
-	}
+export const createTransition = (
+	transition: string | string[],
+	options: Options = { duration: 300 }
+) => {
+	const all = [transition].flat()
+	const { duration } = options
+	return all
+		.map(transition => `${transition} ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`)
+		.join(', ')
 }

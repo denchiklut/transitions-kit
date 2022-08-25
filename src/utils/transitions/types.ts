@@ -11,11 +11,8 @@ export type TransitionHandlerKeys =
 	| 'onExit'
 	| 'onExiting'
 	| 'onExited'
-export type TransitionHandlerProps = Pick<_TransitionProps, TransitionHandlerKeys>
 
-export interface EasingProps {
-	easing: string | { enter?: string; exit?: string }
-}
+export type TransitionHandlerProps = Pick<_TransitionProps, TransitionHandlerKeys>
 
 export type TransitionKeys =
 	| 'in'
@@ -25,7 +22,8 @@ export type TransitionKeys =
 	| 'easing'
 	| 'addEndListener'
 	| TransitionHandlerKeys
+
 export interface TransitionProps
 	extends TransitionActions,
-		Partial<Pick<_TransitionProps & EasingProps, TransitionKeys>>,
+		Partial<Pick<_TransitionProps, TransitionKeys>>,
 		HTMLAttributes<HTMLElement> {}
