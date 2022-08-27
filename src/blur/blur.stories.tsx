@@ -1,46 +1,37 @@
 import { Story } from '@storybook/react'
 import { Blur, type BlurProps } from './index'
-import { useState } from 'react'
+import image from './thumbnail.jpeg'
 
 export default {
 	component: Blur,
-	title: 'Transitions/Blur',
-	argTypes: {
-		in: {
-			control: false
-		}
-	}
+	title: 'Transitions/Blur'
 }
 
-const Template: Story<BlurProps> = ({ in: inProp, ...props }) => {
-	const [open, setOpen] = useState(false)
-
-	return (
-		<div>
-			<button onClick={() => setOpen(!open)}>{open ? 'close' : 'open'}</button>
-			<Blur in={open} {...props} />
-		</div>
-	)
-}
+const Template: Story<BlurProps> = props => <Blur {...props} />
 
 export const Basic = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {
 			code: `
-<Blur in={open} timeout={500}>
+<Blur in={open} radius={25} timeout={500}>
   <img src='https://picsum.photos/400' />
 </Blur>`
 		}
 	}
 }
 Basic.args = {
+	in: true,
+	radius: 15,
 	timeout: 500,
+	appear: false,
+	unmountOnExit: true,
+	mountOnEnter: true,
 	children: (
 		<img
 			alt='demo'
-			style={{ width: 350, height: 150, objectFit: 'cover' }}
-			src='https://picsum.photos/400'
+			style={{ width: 250, height: 250, borderRadius: 4, objectFit: 'cover' }}
+			src={image}
 		/>
 	)
 }

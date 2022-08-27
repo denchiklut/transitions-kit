@@ -1,22 +1,20 @@
 import { Story } from '@storybook/react'
 import { Fade, type FadeProps } from './index'
-import { useState } from 'react'
 
 export default {
 	component: Fade,
-	title: 'Transitions/Fade'
+	title: 'Transitions/Fade',
+	argTypes: {
+		easing: {
+			control: false,
+			table: {
+				disable: true
+			}
+		}
+	}
 }
 
-const Template: Story<FadeProps> = ({ in: inProp, ...props }) => {
-	const [open, setOpen] = useState(false)
-
-	return (
-		<div>
-			<button onClick={() => setOpen(!open)}>{open ? 'close' : 'open'}</button>
-			<Fade in={open} {...props} />
-		</div>
-	)
-}
+const Template: Story<FadeProps> = props => <Fade {...props} />
 
 export const Basic = Template.bind({})
 Basic.parameters = {
@@ -27,7 +25,7 @@ Basic.parameters = {
   <div style={{ 
       width: 250, 
       height: 250, 
-      background: '#222'
+      background: 'linear-gradient(to right, #fc5c7d, #6a82fb)'
     }}
   />
 </Fade>`
@@ -35,7 +33,8 @@ Basic.parameters = {
 	}
 }
 Basic.args = {
-	timeout: 1000,
+	in: true,
+	timeout: 500,
 	mountOnEnter: true,
 	unmountOnExit: true,
 	children: (
@@ -43,7 +42,8 @@ Basic.args = {
 			style={{
 				width: 250,
 				height: 250,
-				background: '#222'
+				borderRadius: 4,
+				background: 'linear-gradient(to right, #fc5c7d, #6a82fb)'
 			}}
 		/>
 	)

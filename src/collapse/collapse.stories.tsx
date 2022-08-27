@@ -1,22 +1,12 @@
 import { Story } from '@storybook/react'
 import { Collapse, type CollapseProps } from './index'
-import { useState } from 'react'
 
 export default {
 	component: Collapse,
 	title: 'Transitions/Collapse'
 }
 
-const Template: Story<CollapseProps> = ({ in: inProp, ...props }) => {
-	const [open, setOpen] = useState(false)
-
-	return (
-		<div>
-			<button onClick={() => setOpen(!open)}>{open ? 'close' : 'open'}</button>
-			<Collapse in={open} {...props} />
-		</div>
-	)
-}
+const Template: Story<CollapseProps> = props => <Collapse {...props} />
 
 export const Basic = Template.bind({})
 Basic.parameters = {
@@ -33,6 +23,7 @@ Basic.parameters = {
 		}
 	}
 }
+
 Basic.args = {
 	timeout: 500,
 	children: (

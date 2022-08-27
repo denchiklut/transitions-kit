@@ -8,24 +8,22 @@ const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entered: { opacity: 1 }
 }
 
-export const Fade: FC<FadeProps> = props => {
-	const {
-		addEndListener,
-		appear = true,
-		children,
-		easing,
-		in: inProp,
-		onEnter,
-		onEntered,
-		onEntering,
-		onExit,
-		onExited,
-		onExiting,
-		style,
-		timeout,
-		...other
-	} = props
-
+export const Fade: FC<FadeProps> = ({
+	addEndListener,
+	appear = true,
+	children,
+	easing,
+	in: inProp,
+	onEnter,
+	onEntered,
+	onEntering,
+	onExit,
+	onExited,
+	onExiting,
+	style,
+	timeout,
+	...other
+}) => {
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
 
