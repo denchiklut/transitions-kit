@@ -1,5 +1,6 @@
 ## TransitionsKit
 A set of predefined transition components build on top of `react-transition-gorup`
+Implementation is based on Mui source code.
 
 ### See the  [demo](https://denchiklut.github.io/transitions-kit)
 
@@ -11,25 +12,23 @@ A set of predefined transition components build on top of `react-transition-goru
     <img src='https://picsum.photos/400' />
 </Blur>
 ```
+##### Slide:
+```jsx 
+<Slide direction='up' in={checked} container={containerRef.current}>
+    content
+</Slide>
+```
 
 ##### Collapse:
 ```jsx
 <Collapse in={open} unmountOnExit>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad distinctio
-        dolorem maiores necessitatibus nemo rerum sit ullam vel. Incidunt, ipsum maiores omnis
-        porro possimus recusandae repellat sequi similique.
-    </p>
+    content
 </Collapse>
 ```
 
 ##### Fade:
 ```jsx
 <Fade in={open}>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad distinctio
-        dolorem maiores necessitatibus nemo rerum sit ullam vel. Incidunt, ipsum maiores omnis
-        porro possimus recusandae repellat sequi similique.
-    </p>
+    content
 </Fade>
 ```
