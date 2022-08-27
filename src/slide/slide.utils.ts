@@ -1,27 +1,19 @@
-// Translate the node so it can't be seen on the screen.
-// Later, we're going to translate the node back to its original location with `none`.
+import type { SlideProps } from './slide.types'
 import { ownerWindow } from '../utils'
-import { SlideProps } from './slide.types'
 
 function getTranslateValue(
 	direction: SlideProps['direction'],
 	node: HTMLElement,
-	resolvedContainer: unknown
+	resolvedContainer?: Element | null
 ) {
 	const rect = node.getBoundingClientRect()
-	// @ts-ignore
-	const containerRect = resolvedContainer && resolvedContainer.getBoundingClientRect()
+	const containerRect = resolvedContainer?.getBoundingClientRect()
 	const containerWindow = ownerWindow(node)
-	let transform
 
-	// @ts-ignore
-	if (node.fakeTransform) transform = node.fakeTransform
-	else {
-		const computedStyle = containerWindow.getComputedStyle(node)
-		transform =
-			computedStyle.getPropertyValue('-webkit-transform') ||
-			computedStyle.getPropertyValue('transform')
-	}
+	const computedStyle = containerWindow.getComputedStyle(node)
+	const transform =
+		computedStyle.getPropertyValue('-webkit-transform') ||
+		computedStyle.getPropertyValue('transform')
 
 	let offsetX = 0
 	let offsetY = 0
@@ -62,14 +54,14 @@ function getTranslateValue(
 	return `translateY(-${rect.top + rect.height - offsetY}px)`
 }
 
-function resolveContainer(containerPropProp: unknown) {
+function resolveContainer(containerPropProp: SlideProps['container']) {
 	return typeof containerPropProp === 'function' ? containerPropProp() : containerPropProp
 }
 
 export function setTranslateValue(
 	direction: SlideProps['direction'],
 	node: HTMLElement,
-	containerProp: unknown
+	containerProp: SlideProps['container']
 ) {
 	const resolvedContainer = resolveContainer(containerProp)
 	const transform = getTranslateValue(direction, node, resolvedContainer)

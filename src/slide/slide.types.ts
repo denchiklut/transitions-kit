@@ -1,4 +1,4 @@
-import { ReactElement, Ref } from 'react'
+import { ReactElement } from 'react'
 import { TransitionProps } from '../utils'
 
 export interface SlideProps extends TransitionProps {
@@ -16,7 +16,7 @@ export interface SlideProps extends TransitionProps {
 	 * An HTML element, or a function that returns one.
 	 * It's used to set the container the Slide is transitioning from.
 	 */
-	container?: null | Element | ((element: Element) => Element)
+	container?: null | Element | (() => Element)
 	/**
 	 * Direction the child node will enter from.
 	 * @default 'down'
@@ -35,7 +35,6 @@ export interface SlideProps extends TransitionProps {
 	 * If `true`, the component will transition in.
 	 */
 	in?: TransitionProps['in']
-	ref?: Ref<unknown>
 	/**
 	 * The duration for the transition, in milliseconds.
 	 */
