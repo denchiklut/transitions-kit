@@ -24,7 +24,8 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 	} = props
 
 	const childrenRef = useRef<HTMLElement | undefined>(undefined)
-	const handleRef = useForkRef(childrenRef, ref)
+	const handleRefIntermediary = useForkRef(children.ref, childrenRef)
+	const handleRef = useForkRef(handleRefIntermediary, ref)
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		setTranslateValue(direction, node, containerProp)

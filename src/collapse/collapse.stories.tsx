@@ -25,6 +25,7 @@ Basic.parameters = {
 }
 
 Basic.args = {
+	in: true,
 	timeout: 500,
 	children: (
 		<div style={{ width: 200 }}>

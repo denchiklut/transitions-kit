@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { Ref } from 'react'
 import { TransitionProps } from '../utils'
 
 export interface SlideProps extends TransitionProps {
@@ -11,7 +11,7 @@ export interface SlideProps extends TransitionProps {
 	/**
 	 * A single child content element.
 	 */
-	children: ReactElement<any, any>
+	children: JSX.Element & { ref?: Ref<unknown> }
 	/**
 	 * An HTML element, or a function that returns one.
 	 * It's used to set the container the Slide is transitioning from.

@@ -1,43 +1,44 @@
-import { type FC, type CSSProperties, cloneElement } from 'react'
-import { Transition, type TransitionStatus } from 'react-transition-group'
-import { createTransition, reflow } from '../utils'
+import { cloneElement, forwardRef } from 'react'
+import { Transition } from 'react-transition-group'
+import { createTransition, reflow, useForkRef } from '../utils'
 import { BlurProps } from './blur.types'
+import { getCSS } from './blur.utils'
 
-const getCSS = (radius: number): Partial<Record<TransitionStatus, CSSProperties>> => ({
-	entering: { opacity: 1, filter: 'blur(0)' },
-	entered: { opacity: 1, filter: 'blur(0)' },
-	exiting: { opacity: 0, filter: `blur(${radius}px)` },
-	exited: { opacity: 0, filter: `blur(${radius}px)` }
-})
+export const Blur = forwardRef((props: BlurProps, ref) => {
+	const {
+		addEndListener,
+		appear = true,
+		children,
+		easing,
+		in: inProp,
+		radius = 25,
+		onEnter,
+		onEntered,
+		onEntering,
+		onExit,
+		onExited,
+		onExiting,
+		style,
+		timeout,
+		...other
+	} = props
+	const handleRef = useForkRef(children.ref, ref)
 
-export const Blur: FC<BlurProps> = ({
-	addEndListener,
-	appear = true,
-	children,
-	easing,
-	in: inProp,
-	radius = 25,
-	onEnter,
-	onEntered,
-	onEntering,
-	onExit,
-	onExited,
-	onExiting,
-	style,
-	timeout,
-	...other
-}) => {
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
 
-		node.style.webkitTransition = createTransition(['opacity', 'filter'], { duration: timeout })
+		node.style.webkitTransition = createTransition(['opacity', 'filter'], {
+			duration: timeout
+		})
 		node.style.transition = createTransition(['opacity', 'filter'], { duration: timeout })
 
 		onEnter?.(node, isAppearing)
 	}
 
 	const handleExit = (node: HTMLElement) => {
-		node.style.webkitTransition = createTransition(['opacity', 'filter'], { duration: timeout })
+		node.style.webkitTransition = createTransition(['opacity', 'filter'], {
+			duration: timeout
+		})
 		node.style.transition = createTransition(['opacity', 'filter'], { duration: timeout })
 
 		onExit?.(node)
@@ -63,6 +64,7 @@ export const Blur: FC<BlurProps> = ({
 		>
 			{state =>
 				cloneElement(children, {
+					ref: handleRef,
 					style: {
 						opacity: 0,
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
@@ -74,4 +76,4 @@ export const Blur: FC<BlurProps> = ({
 			}
 		</Transition>
 	)
-}
+})
