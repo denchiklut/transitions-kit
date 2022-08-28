@@ -37,17 +37,14 @@ Implementation is based on Mui source code.
 
 ##### Zoom:
 
-```jsx 
-import { Zoom } from "./zoom";
-
+```jsx
 <Zoom in={open} timout={500}>
     <img src='https://picsum.photos/400' />
 </Zoom>
 ```
 
 ##### Blur:
-```jsx 
-
+```jsx
 <Blur in={open} timout={500}>
     <img src='https://picsum.photos/400' />
 </Blur>

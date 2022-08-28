@@ -26,9 +26,20 @@ Basic.parameters = {
 
 Basic.args = {
 	in: true,
-	timeout: 500,
+	orientation: 'vertical',
+	unmountOnExit: true,
+	mountOnEnter: true,
 	children: (
-		<div style={{ width: 200 }}>
+		<div
+			style={{
+				width: 200,
+				padding: 8,
+				borderRadius: 4,
+				color: '#222',
+				background: '#eee',
+				border: '1px solid #d5d5d5'
+			}}
+		>
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad distinctio
 			dolorem maiores necessitatibus nemo rerum sit ullam vel. Incidunt, ipsum maiores omnis
 			porro possimus recusandae repellat sequi similique.
