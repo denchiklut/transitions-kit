@@ -1,29 +1,17 @@
-import {
-	TransitionProps as _TransitionProps,
-	TransitionActions
-} from 'react-transition-group/Transition'
-import { HTMLAttributes } from 'react'
+import { CSSProperties } from 'react'
 
-export type TransitionHandlerKeys =
-	| 'onEnter'
-	| 'onEntering'
-	| 'onEntered'
-	| 'onExit'
-	| 'onExiting'
-	| 'onExited'
+export interface ComponentProps {
+	style: CSSProperties | undefined
+	easing: string | { enter?: string; exit?: string } | undefined
+	timeout: number | string | { enter?: number; exit?: number }
+}
 
-export type TransitionHandlerProps = Pick<_TransitionProps, TransitionHandlerKeys>
+export interface Options {
+	mode: 'enter' | 'exit'
+}
 
-export type TransitionKeys =
-	| 'in'
-	| 'mountOnEnter'
-	| 'unmountOnExit'
-	| 'timeout'
-	| 'easing'
-	| 'addEndListener'
-	| TransitionHandlerKeys
-
-export interface TransitionProps
-	extends TransitionActions,
-		Partial<Pick<_TransitionProps, TransitionKeys>>,
-		HTMLAttributes<HTMLElement> {}
+export interface TransitionProps {
+	duration: string | number
+	easing: string | undefined
+	delay: string | undefined
+}

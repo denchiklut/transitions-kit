@@ -1,10 +1,15 @@
 import { cloneElement, forwardRef } from 'react'
 import { Transition } from 'react-transition-group'
-import { createTransition, reflow, useForkRef } from '../utils'
+import { createTransition, duration, getTransitionProps, reflow, useForkRef } from '../utils'
 import { BlurProps } from './blur.types'
 import { getCSS } from './blur.utils'
 
 export const Blur = forwardRef((props: BlurProps, ref) => {
+	const defaultTimeout = {
+		enter: duration.enteringScreen,
+		exit: duration.leavingScreen
+	}
+
 	const {
 		addEndListener,
 		appear = true,
@@ -19,7 +24,7 @@ export const Blur = forwardRef((props: BlurProps, ref) => {
 		onExited,
 		onExiting,
 		style,
-		timeout,
+		timeout = defaultTimeout,
 		...other
 	} = props
 	const handleRef = useForkRef(children.ref, ref)
@@ -27,19 +32,17 @@ export const Blur = forwardRef((props: BlurProps, ref) => {
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
 
-		node.style.webkitTransition = createTransition(['opacity', 'filter'], {
-			duration: timeout
-		})
-		node.style.transition = createTransition(['opacity', 'filter'], { duration: timeout })
+		const transitionProps = getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
+		node.style.webkitTransition = createTransition(['opacity', 'filter'], transitionProps)
+		node.style.transition = createTransition(['opacity', 'filter'], transitionProps)
 
 		onEnter?.(node, isAppearing)
 	}
 
 	const handleExit = (node: HTMLElement) => {
-		node.style.webkitTransition = createTransition(['opacity', 'filter'], {
-			duration: timeout
-		})
-		node.style.transition = createTransition(['opacity', 'filter'], { duration: timeout })
+		const transitionProps = getTransitionProps({ style, timeout, easing }, { mode: 'exit' })
+		node.style.webkitTransition = createTransition(['opacity', 'filter'], transitionProps)
+		node.style.transition = createTransition(['opacity', 'filter'], transitionProps)
 
 		onExit?.(node)
 	}

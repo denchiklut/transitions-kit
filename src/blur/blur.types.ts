@@ -23,8 +23,13 @@ export interface BlurProps extends Omit<TransitionProps, 'children'> {
 	in?: boolean
 	/**
 	 * The duration for the transition, in milliseconds.
+	 * You may specify a single timeout for all transitions, or individually with an object.
+	 * @default {
+	 *   enter: 225,
+	 *   exit: 195
+	 * }
 	 */
-	timeout?: number
+	timeout?: TransitionProps['timeout']
 	/**
 	 * The size if filter radius.
 	 * @default 25

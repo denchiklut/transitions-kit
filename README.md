@@ -5,18 +5,27 @@ Implementation is based on Mui source code.
 ### See the  [demo](https://denchiklut.github.io/transitions-kit)
 
 ## Usage example
-##### Blur:
-```jsx 
 
-<Blur in={open} timout={500}>
-    <img src='https://picsum.photos/400' />
-</Blur>
+##### Fade:
+```jsx
+<Fade in={open}>
+    content
+</Fade>
 ```
+
 ##### Slide:
 ```jsx 
 <Slide direction='up' in={checked} container={containerRef.current}>
     content
 </Slide>
+```
+
+##### Grow:
+```jsx
+<Grow in={open} timeout={500}>
+    content
+</Grow>
+
 ```
 
 ##### Collapse:
@@ -26,9 +35,10 @@ Implementation is based on Mui source code.
 </Collapse>
 ```
 
-##### Fade:
-```jsx
-<Fade in={open}>
-    content
-</Fade>
+##### Blur:
+```jsx 
+
+<Blur in={open} timout={500}>
+    <img src='https://picsum.photos/400' />
+</Blur>
 ```

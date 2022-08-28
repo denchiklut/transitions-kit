@@ -1,15 +1,48 @@
-export const reflow = (node: Element) => node.scrollTop
+import { ComponentProps, TransitionProps, Options } from './types'
+import { duration, easing } from './consts'
 
-interface Options {
-	duration?: number
+export function getTransitionProps(props: ComponentProps, options: Options): TransitionProps {
+	const { timeout, easing, style = {} } = props
+
+	return {
+		duration:
+			style.transitionDuration ??
+			(typeof timeout === 'number' || typeof timeout === 'string'
+				? timeout
+				: timeout[options.mode] || 0),
+		easing:
+			style.transitionTimingFunction ??
+			(typeof easing === 'object' ? easing[options.mode] : easing),
+		delay: style.transitionDelay
+	}
 }
+
 export const createTransition = (
-	transition: string | string[],
-	options: Options = { duration: 300 }
+	props: string | string[] = ['all'],
+	options: Partial<{ duration: number | string; easing: string; delay: number | string }> = {}
 ) => {
-	const all = [transition].flat()
-	const { duration } = options
-	return all
-		.map(transition => `${transition} ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`)
-		.join(', ')
+	const {
+		duration: durationOption = duration.standard,
+		easing: easingOption = easing.easeInOut,
+		delay = 0
+	} = options
+
+	const formatMs = (milliseconds: number) => `${Math.round(milliseconds)}ms`
+
+	return (Array.isArray(props) ? props : [props])
+		.map(
+			animatedProp =>
+				`${animatedProp} ${
+					typeof durationOption === 'string' ? durationOption : formatMs(durationOption)
+				} ${easingOption} ${typeof delay === 'string' ? delay : formatMs(delay)}`
+		)
+		.join(',')
+}
+
+export const getAutoHeightDuration = (height: number) => {
+	if (!height) return 0
+
+	const constant = height / 36
+
+	return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10)
 }

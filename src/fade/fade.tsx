@@ -1,6 +1,6 @@
 import { cloneElement, CSSProperties, forwardRef } from 'react'
 import { Transition, TransitionStatus } from 'react-transition-group'
-import { createTransition, reflow, useForkRef } from '../utils'
+import { createTransition, duration, getTransitionProps, reflow, useForkRef } from '../utils'
 import { FadeProps } from './fade.types'
 
 const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
@@ -9,6 +9,11 @@ const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 }
 
 export const Fade = forwardRef((props: FadeProps, ref) => {
+	const defaultTimeout = {
+		enter: duration.enteringScreen,
+		exit: duration.leavingScreen
+	}
+
 	const {
 		addEndListener,
 		appear = true,
@@ -22,7 +27,7 @@ export const Fade = forwardRef((props: FadeProps, ref) => {
 		onExited,
 		onExiting,
 		style,
-		timeout,
+		timeout = defaultTimeout,
 		...other
 	} = props
 
@@ -31,15 +36,17 @@ export const Fade = forwardRef((props: FadeProps, ref) => {
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
 
-		node.style.webkitTransition = createTransition('opacity', { duration: timeout })
-		node.style.transition = createTransition('opacity', { duration: timeout })
+		const transitionProps = getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
+		node.style.webkitTransition = createTransition('opacity', transitionProps)
+		node.style.transition = createTransition('opacity', transitionProps)
 
 		onEnter?.(node, isAppearing)
 	}
 
 	const handleExit = (node: HTMLElement) => {
-		node.style.webkitTransition = createTransition('opacity', { duration: timeout })
-		node.style.transition = createTransition('opacity', { duration: timeout })
+		const transitionProps = getTransitionProps({ style, timeout, easing }, { mode: 'exit' })
+		node.style.webkitTransition = createTransition('opacity', transitionProps)
+		node.style.transition = createTransition('opacity', transitionProps)
 
 		onExit?.(node)
 	}

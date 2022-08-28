@@ -1,7 +1,7 @@
 import { Ref } from 'react'
 import { TransitionProps } from '../utils'
 
-export interface FadeProps extends Omit<TransitionProps, 'children'> {
+export interface GrowProps extends Omit<TransitionProps, 'timeout'> {
 	/**
 	 * Perform the enter transition when it first mounts if `in` is also `true`.
 	 * Set this to `false` to disable this behavior.
@@ -21,13 +21,13 @@ export interface FadeProps extends Omit<TransitionProps, 'children'> {
 	 * If `true`, the component will transition in.
 	 */
 	in?: boolean
+
 	/**
 	 * The duration for the transition, in milliseconds.
 	 * You may specify a single timeout for all transitions, or individually with an object.
-	 * @default {
-	 *   enter: 225,
-	 *   exit: 195
-	 * }
+	 *
+	 * Set to 'auto' to automatically calculate transition time based on height.
+	 * @default 'auto'
 	 */
-	timeout?: TransitionProps['timeout']
+	timeout?: TransitionProps['timeout'] | 'auto'
 }

@@ -14,7 +14,7 @@ Basic.parameters = {
 	docs: {
 		source: {
 			code: `
-<Blur in={open} radius={25} timeout={500}>
+<Blur in={open} radius={15}>
   <img src='https://picsum.photos/400' />
 </Blur>`
 		}

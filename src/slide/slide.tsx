@@ -1,16 +1,36 @@
 import { Transition } from 'react-transition-group'
 import { cloneElement, forwardRef, useCallback, useEffect, useRef } from 'react'
-import { createTransition, ownerWindow, reflow, debounce, useForkRef } from '../utils'
+import {
+	createTransition,
+	ownerWindow,
+	reflow,
+	debounce,
+	useForkRef,
+	easing,
+	duration,
+	getTransitionProps
+} from '../utils'
 import { setTranslateValue } from './slide.utils'
 import { SlideProps } from './slide.types'
 
 export const Slide = forwardRef((props: SlideProps, ref) => {
+	const defaultEasing = {
+		enter: easing.easeOut,
+		exit: easing.sharp
+	}
+
+	const defaultTimeout = {
+		enter: duration.enteringScreen,
+		exit: duration.leavingScreen
+	}
+
 	const {
 		addEndListener,
 		appear = true,
 		children,
 		container: containerProp,
 		direction = 'down',
+		easing: easingProp = defaultEasing,
 		in: inProp,
 		onEnter,
 		onEntered,
@@ -19,7 +39,7 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 		onExited,
 		onExiting,
 		style,
-		timeout = 500,
+		timeout = defaultTimeout,
 		...other
 	} = props
 
@@ -35,13 +55,13 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 	}
 
 	const handleEntering = (node: HTMLElement, isAppearing: boolean) => {
-		node.style.webkitTransition = createTransition('-webkit-transform', {
-			duration: timeout
-		})
+		const transitionProps = getTransitionProps(
+			{ timeout, style, easing: easingProp },
+			{ mode: 'enter' }
+		)
 
-		node.style.transition = createTransition('transform', {
-			duration: timeout
-		})
+		node.style.webkitTransition = createTransition('-webkit-transform', transitionProps)
+		node.style.transition = createTransition('transform', transitionProps)
 
 		node.style.webkitTransform = 'none'
 		node.style.transform = 'none'
@@ -50,8 +70,13 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 	}
 
 	const handleExit = (node: HTMLElement) => {
-		node.style.webkitTransition = createTransition('-webkit-transform', { duration: timeout })
-		node.style.transition = createTransition('transform', { duration: timeout })
+		const transitionProps = getTransitionProps(
+			{ timeout, style, easing: easingProp },
+			{ mode: 'exit' }
+		)
+
+		node.style.webkitTransition = createTransition('-webkit-transform', transitionProps)
+		node.style.transition = createTransition('transform', transitionProps)
 
 		setTranslateValue(direction, node, containerProp)
 
