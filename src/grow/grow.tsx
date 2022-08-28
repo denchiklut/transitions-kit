@@ -77,10 +77,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		}
 
 		node.style.transition = [
-			createTransition('opacity', {
-				duration,
-				delay
-			}),
+			createTransition('opacity', { duration, delay }),
 			createTransition('transform', {
 				duration: isNumber(duration) ? duration * 0.666 : duration,
 				delay: isNumber(duration) ? delay || duration * 0.333 : delay,

@@ -9,7 +9,7 @@ Implementation is based on Mui source code.
 ##### Fade:
 ```jsx
 <Fade in={open}>
-    content
+    <img src='https://picsum.photos/400' />
 </Fade>
 ```
 
@@ -23,7 +23,7 @@ Implementation is based on Mui source code.
 ##### Grow:
 ```jsx
 <Grow in={open} timeout={500}>
-    content
+    <img src='https://picsum.photos/400' />
 </Grow>
 
 ```
@@ -31,8 +31,18 @@ Implementation is based on Mui source code.
 ##### Collapse:
 ```jsx
 <Collapse in={open} unmountOnExit>
-    content
+    <img src='https://picsum.photos/400' />
 </Collapse>
+```
+
+##### Zoom:
+
+```jsx 
+import { Zoom } from "./zoom";
+
+<Zoom in={open} timout={500}>
+    <img src='https://picsum.photos/400' />
+</Zoom>
 ```
 
 ##### Blur:
