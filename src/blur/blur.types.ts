@@ -1,4 +1,3 @@
-import { Ref } from 'react'
 import { TransitionProps } from '../utils'
 
 export interface BlurProps extends Omit<TransitionProps, 'children'> {
@@ -11,7 +10,7 @@ export interface BlurProps extends Omit<TransitionProps, 'children'> {
 	/**
 	 * A single child content element.
 	 */
-	children: JSX.Element & { ref?: Ref<unknown> }
+	children: JSX.Element
 	/**
 	 * The transition timing function.
 	 * You may specify a single easing or a object containing enter and exit values.

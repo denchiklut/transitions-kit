@@ -1,12 +1,13 @@
 import { Transition } from 'react-transition-group'
 import { cloneElement, forwardRef, useEffect, useRef } from 'react'
 import {
+	ElementWithRef,
 	createTransition,
 	getAutoHeightDuration,
 	getTransitionProps,
+	useForkRef,
 	isNumber,
-	reflow,
-	useForkRef
+	reflow
 } from '../utils'
 import { getScale, styles } from './grow.utils'
 import { GrowProps } from './grow.types'
@@ -30,7 +31,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 	} = props
 	const timer = useRef<NodeJS.Timer>()
 	const autoTimeout = useRef<number>()
-	const handleRef = useForkRef(children.ref, ref)
+	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)

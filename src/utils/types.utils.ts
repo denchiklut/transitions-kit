@@ -2,7 +2,7 @@ import {
 	TransitionProps as _TransitionProps,
 	TransitionActions
 } from 'react-transition-group/Transition'
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, Ref } from 'react'
 
 export type TransitionHandlerKeys =
 	| 'onEnter'
@@ -27,3 +27,5 @@ export interface TransitionProps
 	extends TransitionActions,
 		Partial<Pick<_TransitionProps, TransitionKeys>>,
 		HTMLAttributes<HTMLElement> {}
+
+export type ElementWithRef = JSX.Element & { ref?: Ref<unknown> }

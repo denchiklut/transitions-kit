@@ -1,6 +1,13 @@
 import { cloneElement, CSSProperties, forwardRef } from 'react'
 import { Transition, TransitionStatus } from 'react-transition-group'
-import { createTransition, duration, getTransitionProps, reflow, useForkRef } from '../utils'
+import {
+	duration,
+	ElementWithRef,
+	createTransition,
+	getTransitionProps,
+	useForkRef,
+	reflow
+} from '../utils'
 import { FadeProps } from './fade.types'
 
 const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
@@ -31,7 +38,7 @@ export const Fade = forwardRef((props: FadeProps, ref) => {
 		...other
 	} = props
 
-	const handleRef = useForkRef(children.ref, ref)
+	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)

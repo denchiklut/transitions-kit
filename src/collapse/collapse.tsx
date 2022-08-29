@@ -1,6 +1,12 @@
 import { forwardRef, useEffect, useRef } from 'react'
 import { Transition } from 'react-transition-group'
-import { duration, getAutoHeightDuration, getTransitionProps, useForkRef } from '../utils'
+import {
+	duration,
+	ElementWithRef,
+	getAutoHeightDuration,
+	getTransitionProps,
+	useForkRef
+} from '../utils'
 import { CollapseRoot, CollapseWrapper, CollapseWrapperInner } from './collapse.styles'
 import { CollapseProps } from './collapse.types'
 
@@ -32,7 +38,7 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 	}
 
 	const timer = useRef<NodeJS.Timer>()
-	const handleRef = useForkRef(children.ref, ref)
+	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
 	const wrapperRef = useRef<HTMLElement>(null)
 	const autoTransitionDuration = useRef<string | number>()
 	const collapsedSize =

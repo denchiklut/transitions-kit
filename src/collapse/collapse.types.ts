@@ -1,11 +1,11 @@
-import { ElementType, Ref } from 'react'
+import { ElementType } from 'react'
 import { TransitionProps } from '../utils'
 
 export interface CollapseProps extends TransitionProps {
 	/**
 	 * The content node to be collapsed.
 	 */
-	children: JSX.Element & { ref?: Ref<unknown> }
+	children: JSX.Element
 	/**
 	 * The width (horizontal) or height (vertical) of the container when collapsed.
 	 * @default '0px'

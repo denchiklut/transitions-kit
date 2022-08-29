@@ -8,7 +8,8 @@ import {
 	useForkRef,
 	easing,
 	duration,
-	getTransitionProps
+	getTransitionProps,
+	ElementWithRef
 } from '../utils'
 import { setTranslateValue } from './slide.utils'
 import { SlideProps } from './slide.types'
@@ -44,7 +45,7 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 	} = props
 
 	const childrenRef = useRef<HTMLElement | undefined>(undefined)
-	const handleRefIntermediary = useForkRef(children.ref, childrenRef)
+	const handleRefIntermediary = useForkRef((children as ElementWithRef).ref, childrenRef)
 	const handleRef = useForkRef(handleRefIntermediary, ref)
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {

@@ -1,6 +1,13 @@
 import { cloneElement, forwardRef } from 'react'
 import { Transition } from 'react-transition-group'
-import { createTransition, duration, getTransitionProps, reflow, useForkRef } from '../utils'
+import {
+	duration,
+	ElementWithRef,
+	createTransition,
+	getTransitionProps,
+	useForkRef,
+	reflow
+} from '../utils'
 import { BlurProps } from './blur.types'
 import { getCSS } from './blur.utils'
 
@@ -27,7 +34,7 @@ export const Blur = forwardRef((props: BlurProps, ref) => {
 		timeout = defaultTimeout,
 		...other
 	} = props
-	const handleRef = useForkRef(children.ref, ref)
+	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
