@@ -5,7 +5,8 @@ import {
 	ElementWithRef,
 	getAutoHeightDuration,
 	getTransitionProps,
-	useForkRef
+	useForkRef,
+	reflow
 } from '../utils'
 import { CollapseRoot, CollapseWrapper, CollapseWrapperInner } from './collapse.styles'
 import { CollapseProps } from './collapse.types'
@@ -53,13 +54,9 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 	}, [])
 
 	const getWrapperSize = () =>
-		wrapperRef.current ? wrapperRef.current[isHorizontal ? 'clientWidth' : 'clientHeight'] : 0
+		wrapperRef.current ? wrapperRef.current[isHorizontal ? 'scrollWidth' : 'scrollHeight'] : 0
 
 	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
-		if (wrapperRef.current && isHorizontal) {
-			// Set absolute position to get the size of collapsed content
-			wrapperRef.current.style.position = 'absolute'
-		}
 		node.style[size] = collapsedSize
 
 		onEnter?.(node, isAppearing)
@@ -67,12 +64,6 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 
 	const handleEntering = (node: HTMLElement, isAppearing: boolean) => {
 		const wrapperSize = getWrapperSize()
-
-		if (wrapperRef.current && isHorizontal) {
-			// After the size is read reset the position back to default
-			wrapperRef.current.style.position = ''
-		}
-
 		const { duration: transitionDuration, easing: transitionTimingFunction } =
 			getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
 
@@ -101,14 +92,17 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 
 	const handleExit = (node: HTMLElement) => {
 		node.style[size] = `${getWrapperSize()}px`
+		if (wrapperRef.current) reflow(wrapperRef.current)
 
 		onExit?.(node)
 	}
 
 	const handleExiting = (node: HTMLElement) => {
 		const wrapperSize = getWrapperSize()
-		const { duration: transitionDuration, easing: transitionTimingFunction } =
-			getTransitionProps({ style, timeout, easing }, { mode: 'exit' })
+		const { duration: transitionDuration, easing: transitionFn } = getTransitionProps(
+			{ style, timeout, easing },
+			{ mode: 'exit' }
+		)
 
 		if (timeout === 'auto') {
 			// Actually it just calculates animation duration based on size
@@ -123,7 +117,7 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		}
 
 		node.style[size] = collapsedSize
-		node.style.transitionTimingFunction = `${transitionTimingFunction}`
+		node.style.transitionTimingFunction = transitionFn ?? ''
 
 		onExiting?.(node)
 	}
