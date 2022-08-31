@@ -4,6 +4,10 @@ Implementation is based on Mui source code.
 
 ### See the  [demo](https://denchiklut.github.io/transitions-kit)
 
+<img width="200px" src="https://github.com/denchiklut/transitions-kit/blob/main/public/blur.gif?raw=true"/><img width="200px" src="https://github.com/denchiklut/transitions-kit/blob/main/public/slide.gif?raw=true"/>
+<img width="200px" src="https://github.com/denchiklut/transitions-kit/blob/main/public/collapse.gif?raw=true"/><img width="200px" src="https://github.com/denchiklut/transitions-kit/blob/main/public/zoom.gif?raw=true"/>
+
+
 ## Usage example
 
 ##### Fade:
