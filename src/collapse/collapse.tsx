@@ -1,13 +1,6 @@
-import { forwardRef, useEffect, useRef } from 'react'
 import { Transition } from 'react-transition-group'
-import {
-	duration,
-	ElementWithRef,
-	getAutoHeightDuration,
-	getTransitionProps,
-	useForkRef,
-	reflow
-} from '../utils'
+import { forwardRef, useEffect, useRef } from 'react'
+import { duration, getAutoHeightDuration, getTransitionProps, useForkRef, reflow } from '../utils'
 import { CollapseRoot, CollapseWrapper, CollapseWrapperInner } from './collapse.styles'
 import { CollapseProps } from './collapse.types'
 
@@ -39,7 +32,8 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 	}
 
 	const timer = useRef<NodeJS.Timer>()
-	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
+	const nodeRef = useRef<HTMLElement>(null)
+	const handleRef = useForkRef(nodeRef, ref)
 	const wrapperRef = useRef<HTMLElement>(null)
 	const autoTransitionDuration = useRef<string | number>()
 	const collapsedSize =
@@ -53,51 +47,63 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		}
 	}, [])
 
+	const normalizedTransitionCallback = (callback: Function) => (isAppearing?: boolean) => {
+		const node = nodeRef.current
+		if (callback && node) {
+			if (isAppearing === undefined) callback(node)
+			else callback(node, isAppearing)
+		}
+	}
+
 	const getWrapperSize = () =>
 		wrapperRef.current ? wrapperRef.current[isHorizontal ? 'scrollWidth' : 'scrollHeight'] : 0
 
-	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
+	const handleEnter = normalizedTransitionCallback((node: HTMLElement, isAppearing: boolean) => {
 		node.style[size] = collapsedSize
 
 		onEnter?.(node, isAppearing)
-	}
+	})
 
-	const handleEntering = (node: HTMLElement, isAppearing: boolean) => {
-		const wrapperSize = getWrapperSize()
-		const { duration: transitionDuration, easing: transitionTimingFunction } =
-			getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
+	const handleEntering = normalizedTransitionCallback(
+		(node: HTMLElement, isAppearing: boolean) => {
+			const wrapperSize = getWrapperSize()
+			const { duration: transitionDuration, easing: transitionTimingFunction } =
+				getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
 
-		if (timeout === 'auto') {
-			const duration2 = getAutoHeightDuration(wrapperSize)
-			node.style.transitionDuration = `${duration2}ms`
-			autoTransitionDuration.current = duration2
-		} else {
-			node.style.transitionDuration =
-				typeof transitionDuration === 'string'
-					? transitionDuration
-					: `${transitionDuration}ms`
+			if (timeout === 'auto') {
+				const duration2 = getAutoHeightDuration(wrapperSize)
+				node.style.transitionDuration = `${duration2}ms`
+				autoTransitionDuration.current = duration2
+			} else {
+				node.style.transitionDuration =
+					typeof transitionDuration === 'string'
+						? transitionDuration
+						: `${transitionDuration}ms`
+			}
+
+			node.style[size] = `${wrapperSize}px`
+			node.style.transitionTimingFunction = `${transitionTimingFunction}`
+
+			onEntering?.(node, isAppearing)
 		}
+	)
 
-		node.style[size] = `${wrapperSize}px`
-		node.style.transitionTimingFunction = `${transitionTimingFunction}`
+	const handleEntered = normalizedTransitionCallback(
+		(node: HTMLElement, isAppearing: boolean) => {
+			node.style[size] = 'auto'
 
-		onEntering?.(node, isAppearing)
-	}
+			onEntered?.(node, isAppearing)
+		}
+	)
 
-	const handleEntered = (node: HTMLElement, isAppearing: boolean) => {
-		node.style[size] = 'auto'
-
-		onEntered?.(node, isAppearing)
-	}
-
-	const handleExit = (node: HTMLElement) => {
+	const handleExit = normalizedTransitionCallback((node: HTMLElement) => {
 		node.style[size] = `${getWrapperSize()}px`
 		if (wrapperRef.current) reflow(wrapperRef.current)
 
 		onExit?.(node)
-	}
+	})
 
-	const handleExiting = (node: HTMLElement) => {
+	const handleExiting = normalizedTransitionCallback((node: HTMLElement) => {
 		const wrapperSize = getWrapperSize()
 		const { duration: transitionDuration, easing: transitionFn } = getTransitionProps(
 			{ style, timeout, easing },
@@ -120,24 +126,29 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		node.style.transitionTimingFunction = transitionFn ?? ''
 
 		onExiting?.(node)
-	}
+	})
 
-	const handleAddEndListener = (node: HTMLElement, next: () => void) => {
+	const handleExited = normalizedTransitionCallback(onExited as Function)
+
+	const handleAddEndListener = (next: () => void) => {
 		if (timeout === 'auto') {
 			timer.current = setTimeout(next, Number(autoTransitionDuration.current) || 0)
 		}
 
-		addEndListener?.(node, next)
+		if (nodeRef.current) {
+			addEndListener?.(nodeRef.current, next)
+		}
 	}
 
 	return (
 		<Transition
 			in={inProp}
+			nodeRef={nodeRef}
 			onEnter={handleEnter}
 			onEntered={handleEntered}
 			onEntering={handleEntering}
 			onExit={handleExit}
-			onExited={onExited}
+			onExited={handleExited}
 			onExiting={handleExiting}
 			addEndListener={handleAddEndListener}
 			timeout={timeout === 'auto' ? undefined : timeout}

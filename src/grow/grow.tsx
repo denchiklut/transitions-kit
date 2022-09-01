@@ -31,9 +31,24 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 	} = props
 	const timer = useRef<NodeJS.Timer>()
 	const autoTimeout = useRef<number>()
-	const handleRef = useForkRef((children as ElementWithRef).ref, ref)
+	const nodeRef = useRef<HTMLElement>(null)
+	const foreignRef = useForkRef((children as ElementWithRef).ref, ref)
+	const handleRef = useForkRef(nodeRef, foreignRef)
 
-	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
+	const normalizedTransitionCallback = (callback: Function) => (isAppearing?: boolean) => {
+		const node = nodeRef.current
+		if (callback && node) {
+			if (isAppearing === undefined) callback(node)
+			else callback(node, isAppearing)
+		}
+	}
+
+	const handleEntered = normalizedTransitionCallback(onEntered as Function)
+	const handleEntering = normalizedTransitionCallback(onEntering as Function)
+	const handleExited = normalizedTransitionCallback(onExited as Function)
+	const handleExiting = normalizedTransitionCallback(onExiting as Function)
+
+	const handleEnter = normalizedTransitionCallback((node: HTMLElement, isAppearing: boolean) => {
 		reflow(node)
 
 		const {
@@ -60,9 +75,9 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		].join(',')
 
 		onEnter?.(node, isAppearing)
-	}
+	})
 
-	const handleExit = (node: HTMLElement) => {
+	const handleExit = normalizedTransitionCallback((node: HTMLElement) => {
 		const {
 			duration: transitionDuration,
 			delay,
@@ -90,14 +105,16 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		node.style.transform = getScale(0.75)
 
 		onExit?.(node)
-	}
+	})
 
-	const handleAddEndListener = (node: HTMLElement, next: () => void) => {
+	const handleAddEndListener = (next: () => void) => {
 		if (timeout === 'auto') {
 			timer.current = setTimeout(next, autoTimeout.current || 0)
 		}
 
-		addEndListener?.(node, next)
+		if (nodeRef.current) {
+			addEndListener?.(nodeRef.current, next)
+		}
 	}
 
 	useEffect(() => {
@@ -108,14 +125,15 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 
 	return (
 		<Transition
-			appear={appear}
 			in={inProp}
+			appear={appear}
+			nodeRef={nodeRef}
 			onEnter={handleEnter}
-			onEntered={onEntered}
-			onEntering={onEntering}
+			onEntered={handleEntered}
+			onEntering={handleEntering}
 			onExit={handleExit}
-			onExited={onExited}
-			onExiting={onExiting}
+			onExited={handleExited}
+			onExiting={handleExiting}
 			addEndListener={handleAddEndListener}
 			timeout={timeout === 'auto' ? undefined : timeout}
 			{...other}

@@ -44,33 +44,43 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 		...other
 	} = props
 
-	const childrenRef = useRef<HTMLElement | undefined>(undefined)
-	const handleRefIntermediary = useForkRef((children as ElementWithRef).ref, childrenRef)
+	const nodeRef = useRef<HTMLElement | undefined>(undefined)
+	const handleRefIntermediary = useForkRef((children as ElementWithRef).ref, nodeRef)
 	const handleRef = useForkRef(handleRefIntermediary, ref)
 
-	const handleEnter = (node: HTMLElement, isAppearing: boolean) => {
+	const normalizedTransitionCallback = (callback: Function) => (isAppearing?: boolean) => {
+		const node = nodeRef.current
+		if (callback && node) {
+			if (isAppearing === undefined) callback(node)
+			else callback(node, isAppearing)
+		}
+	}
+
+	const handleEnter = normalizedTransitionCallback((node: HTMLElement, isAppearing: boolean) => {
 		setTranslateValue(direction, node, containerProp)
 		reflow(node)
 
 		onEnter?.(node, isAppearing)
-	}
+	})
 
-	const handleEntering = (node: HTMLElement, isAppearing: boolean) => {
-		const transitionProps = getTransitionProps(
-			{ timeout, style, easing: easingProp },
-			{ mode: 'enter' }
-		)
+	const handleEntering = normalizedTransitionCallback(
+		(node: HTMLElement, isAppearing: boolean) => {
+			const transitionProps = getTransitionProps(
+				{ timeout, style, easing: easingProp },
+				{ mode: 'enter' }
+			)
 
-		node.style.webkitTransition = createTransition('-webkit-transform', transitionProps)
-		node.style.transition = createTransition('transform', transitionProps)
+			node.style.webkitTransition = createTransition('-webkit-transform', transitionProps)
+			node.style.transition = createTransition('transform', transitionProps)
 
-		node.style.webkitTransform = 'none'
-		node.style.transform = 'none'
+			node.style.webkitTransform = 'none'
+			node.style.transform = 'none'
 
-		onEntering?.(node, isAppearing)
-	}
+			onEntering?.(node, isAppearing)
+		}
+	)
 
-	const handleExit = (node: HTMLElement) => {
+	const handleExit = normalizedTransitionCallback((node: HTMLElement) => {
 		const transitionProps = getTransitionProps(
 			{ timeout, style, easing: easingProp },
 			{ mode: 'exit' }
@@ -82,23 +92,25 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 		setTranslateValue(direction, node, containerProp)
 
 		onExit?.(node)
-	}
+	})
 
-	const handleExited = (node: HTMLElement) => {
+	const handleExited = normalizedTransitionCallback((node: HTMLElement) => {
 		// No need for transitions when the component is hidden
 		node.style.webkitTransition = ''
 		node.style.transition = ''
 
 		onExited?.(node)
-	}
+	})
 
 	const handleAddEndListener = (next: () => void) => {
-		addEndListener?.(childrenRef.current!, next)
+		if (nodeRef.current) {
+			addEndListener?.(nodeRef.current, next)
+		}
 	}
 
 	const updatePosition = useCallback(() => {
-		if (childrenRef.current) {
-			setTranslateValue(direction, childrenRef.current, containerProp)
+		if (nodeRef.current) {
+			setTranslateValue(direction, nodeRef.current, containerProp)
 		}
 	}, [direction, containerProp])
 
@@ -109,12 +121,12 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 		}
 
 		const handleResize = debounce(() => {
-			if (childrenRef.current) {
-				setTranslateValue(direction, childrenRef.current, containerProp)
+			if (nodeRef.current) {
+				setTranslateValue(direction, nodeRef.current, containerProp)
 			}
 		})
 
-		const containerWindow = ownerWindow(childrenRef.current!)
+		const containerWindow = ownerWindow(nodeRef.current!)
 		containerWindow.addEventListener('resize', handleResize)
 		return () => {
 			handleResize.clear()
@@ -130,6 +142,7 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 		<Transition
 			in={inProp}
 			appear={appear}
+			nodeRef={nodeRef}
 			timeout={timeout}
 			onEnter={handleEnter}
 			onEntered={onEntered}

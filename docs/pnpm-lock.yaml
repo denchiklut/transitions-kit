@@ -10,7 +10,7 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   react-router-dom: ^6.3.0
-  transitions-kit: ^1.1.6
+  transitions-kit: ^1.1.7
   typescript: ^4.6.4
   vite: ^3.0.7
 
@@ -20,7 +20,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
-  transitions-kit: 1.1.6_biqbaboplfbrettd7655fr4n2y
+  transitions-kit: 1.1.7_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
   '@types/react': 18.0.18
@@ -1150,8 +1150,8 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
 
-  /transitions-kit/1.1.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Gs3QeOP9I5ycjWAiBPQbW48EP1ctzmMMcpenIY44QlqUIs3q5YrUGrpMY3MGIcIA/t0OJMxsNcw0Es4opvp5BA==}
+  /transitions-kit/1.1.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ISeUcPEOq6DZRDj7uzY1RukWpjYiG3Wvdz7Sy5NJtusv3RFvwkDK63+W4AxLgswwzQ1tjp+EWjFHDA5yM/cG6A==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
