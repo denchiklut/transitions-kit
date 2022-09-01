@@ -1,7 +1,7 @@
 import { ElementType } from 'react'
 import { TransitionProps } from '../utils'
 
-export interface CollapseProps extends TransitionProps {
+export interface CollapseProps extends Omit<TransitionProps, 'timeout'> {
 	/**
 	 * The content node to be collapsed.
 	 */
@@ -37,5 +37,5 @@ export interface CollapseProps extends TransitionProps {
 	 * Set to 'auto' to automatically calculate transition time based on height.
 	 * @default duration.standard
 	 */
-	timeout?: TransitionProps['timeout']
+	timeout?: TransitionProps['timeout'] | 'auto'
 }
