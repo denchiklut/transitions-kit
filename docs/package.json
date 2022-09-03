@@ -1,7 +1,6 @@
 {
 	"name": "docs",
 	"version": "0.0.0",
-	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -26,6 +25,8 @@
 		"@storybook/addon-interactions": "^6.5.10",
 		"@storybook/addon-links": "^6.5.10",
 		"@storybook/builder-vite": "^0.2.2",
+		"@storybook/builder-webpack5": "^6.5.10",
+		"@storybook/manager-webpack5": "^6.5.10",
 		"@storybook/react": "^6.5.10",
 		"@storybook/testing-library": "^0.0.13",
 		"@types/react": "^18.0.17",
