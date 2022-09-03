@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react'
-import { Slide, type SlideProps } from './index'
+import { Slide, type SlideProps } from 'transitions-kit'
 
 export default {
 	component: Slide,

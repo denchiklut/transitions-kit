@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react'
-import { Blur, type BlurProps } from './index'
+import { Blur, type BlurProps } from 'transitions-kit'
 import image from './thumbnail.jpeg'
 
 export default {

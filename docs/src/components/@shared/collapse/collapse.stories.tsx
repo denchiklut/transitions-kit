@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react'
-import { Collapse, type CollapseProps } from './index'
+import { Collapse, type CollapseProps } from 'transitions-kit'
 
 export default {
 	component: Collapse,
