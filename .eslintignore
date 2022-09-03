@@ -1,4 +1,2 @@
-node_modules
 dist
-webpack
-.eslintrc.js
+node_modules

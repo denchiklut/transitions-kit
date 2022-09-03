@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react'
-import { Grow, type GrowProps } from './index'
+import { Grow, type GrowProps } from 'transitions-kit'
 
 export default {
 	component: Grow,

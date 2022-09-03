@@ -1,26 +1,26 @@
 import { Story } from '@storybook/react'
-import { Fade, type FadeProps } from './index'
+import { Zoom, type ZoomProps } from 'transitions-kit'
 
 export default {
-	component: Fade,
-	title: 'Transitions/Fade'
+	component: Zoom,
+	title: 'Transitions/Zoom'
 }
 
-const Template: Story<FadeProps> = props => <Fade {...props} />
+const Template: Story<ZoomProps> = props => <Zoom {...props} />
 
 export const Basic = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {
 			code: `
-<Fade in={open} timeout={500}>
+<Zoom in={open} timeout={500}>
   <div style={{ 
       width: 250, 
       height: 250, 
-      background: 'linear-gradient(to right, #fc5c7d, #6a82fb)'
+      background: 'linear-gradient(to right, #ff7e5f, #feb47b)'
     }}
   />
-</Fade>`
+</Zoom>`
 		}
 	}
 }
@@ -35,7 +35,7 @@ Basic.args = {
 				width: 250,
 				height: 250,
 				borderRadius: 4,
-				background: 'linear-gradient(to right, #fc5c7d, #6a82fb)'
+				background: 'linear-gradient(to right, #ff7e5f, #feb47b)'
 			}}
 		/>
 	)
