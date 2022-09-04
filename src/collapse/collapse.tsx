@@ -10,7 +10,6 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		children,
 		className,
 		collapsedSize: collapsedSizeProp = '0px',
-		component,
 		easing,
 		in: inProp,
 		onEnter,

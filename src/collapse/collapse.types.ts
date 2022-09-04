@@ -1,4 +1,3 @@
-import { ElementType } from 'react'
 import { TransitionProps } from '../utils'
 
 export interface CollapseProps extends Omit<TransitionProps, 'timeout'> {
@@ -11,11 +10,6 @@ export interface CollapseProps extends Omit<TransitionProps, 'timeout'> {
 	 * @default '0px'
 	 */
 	collapsedSize?: string | number
-	/**
-	 * The component used for the root node.
-	 * Either a string to use a HTML element or a component.
-	 */
-	component?: ElementType<TransitionProps>
 	/**
 	 * The transition timing function.
 	 * You may specify a single easing or a object containing enter and exit values.
@@ -35,7 +29,7 @@ export interface CollapseProps extends Omit<TransitionProps, 'timeout'> {
 	 * You may specify a single timeout for all transitions, or individually with an object.
 	 *
 	 * Set to 'auto' to automatically calculate transition time based on height.
-	 * @default duration.standard
+	 * @default 300ms
 	 */
 	timeout?: TransitionProps['timeout'] | 'auto'
 }
