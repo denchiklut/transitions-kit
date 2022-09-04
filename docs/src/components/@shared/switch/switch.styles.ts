@@ -8,6 +8,7 @@ export const Wrapper = styled.label`
 	display: inline-flex;
 	flex-direction: ${({ labelPlacement }: Props) => labelPlacement === 'start' ? 'row': 'row-reverse'};
 	align-items: center;
+	justify-self: start;
 	gap: 12px;
 `
 

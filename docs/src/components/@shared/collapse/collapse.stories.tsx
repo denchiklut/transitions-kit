@@ -47,38 +47,40 @@ export default {
 		unmountOnExit: {
 			type: { name: 'boolean', required: false },
 			description: 'By default the child component stays mounted after it reaches the \'exited\' state.\n	* Set unmountOnExit if you\'d prefer to unmount the component after it finishes exiting.',
-			defaultValue: { summary: 'false' }
+			table: { defaultValue: { summary: 'false' } }
 		},
 	}
 }
 
-const Template: Story<CollapseProps> = () => {
+const Template: Story<CollapseProps> = ({ in: inProp, collapsedSize, orientation, children, ...props}) => {
 	const [open, setOpen] = useState(true)
 
 	return (
-		<div>
-			<Switch labelPlacement='end' label='Show' checked={open} onChange={setOpen} />
+		<>
+			<Switch label='Show' checked={open} onChange={setOpen} />
+
+			<div style={{height: 10}}/>
 
 			<Row>
-				<Collapse in={open}>
+				<Collapse in={open} { ...props }>
 					<Content />
 				</Collapse>
 
-				<Collapse in={open} collapsedSize={69}>
+				<Collapse in={open} collapsedSize={69} { ...props }>
 					<Content />
 				</Collapse>
 			</Row>
 
 			<Row>
-				<Collapse in={open} orientation='horizontal'>
+				<Collapse in={open} orientation='horizontal' { ...props }>
 					<Content />
 				</Collapse>
 
-				<Collapse component='div' in={open} orientation='horizontal' collapsedSize={67}>
+				<Collapse in={open} orientation='horizontal' collapsedSize={67} { ...props }>
 					<Content />
 				</Collapse>
 			</Row>
-		</div>
+		</>
 	)
 }
 
@@ -106,5 +108,10 @@ Basic.parameters = {
 `
 		}
 	}
+}
+
+Basic.args = {
+	appear: false,
+	timeout: 500
 }
 

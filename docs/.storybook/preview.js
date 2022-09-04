@@ -1,6 +1,6 @@
 export const decorators = [
 	Story => (
-		<div>
+		<div style={{ padding: 10 }}>
 			<Story/>
 		</div>
 	)
