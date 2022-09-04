@@ -1,20 +1,5 @@
 import styled from '@emotion/styled'
 
-interface Props {
-	labelPlacement: 'start'|'end'
-}
-export const Wrapper = styled.label`
-	cursor: pointer;
-	display: inline-flex;
-	flex-direction: ${({ labelPlacement }: Props) => labelPlacement === 'start' ? 'row': 'row-reverse'};
-	align-items: center;
-	justify-self: start;
-	gap: 12px;
-`
-
-export const Label = styled.span`
-`
-
 export const Toggle = styled.span`
 	position: relative;
 	display: inline-block;
@@ -41,22 +26,35 @@ export const Slider = styled.span`
 		width: 22px;
 		left: 2px;
 		bottom: 2px;
-		border-radius: 50%;
+		border-radius: 22px;
 		background-color: white;
 		transition-duration: 300ms;
-		box-shadow: 00 2px 1px -1px rgb(0 0 0 / 10%);
+		box-shadow: 0 2px 1px -1px rgb(0 0 0 / 10%);
 	}
+`
+
+interface Props {
+	labelPlacement: 'start' | 'end'
+}
+export const Wrapper = styled.label`
+	gap: 12px;
+	cursor: pointer;
+	align-items: center;
+	justify-self: start;
+	display: inline-flex;
+	-webkit-tap-highlight-color: transparent;
+	flex-direction: ${({ labelPlacement }: Props) =>
+		labelPlacement === 'start' ? 'row' : 'row-reverse'};
 `
 
 export const Input = styled.input`
 	opacity: 0;
 	width: 0;
 	height: 0;
-	:checked +${Slider} {
+	:checked + ${Slider} {
 		background-color: #65c565;
 		:before {
 			transform: translateX(16px);
 		}
 	}
-})
 `

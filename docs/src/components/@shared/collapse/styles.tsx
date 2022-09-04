@@ -24,7 +24,8 @@ const Svg = styled.svg`
 	width: 100%;
 	height: 100%;
 	fill: #cec6e4;
-	box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px inset,
+		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 `
 
 export const Icon = () => (

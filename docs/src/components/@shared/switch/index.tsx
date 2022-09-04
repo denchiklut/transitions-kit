@@ -1,10 +1,9 @@
 import type { FC, ChangeEvent } from 'react'
-import { Label, Input, Slider, Wrapper, Toggle } from './switch.styles'
-
+import { Input, Slider, Wrapper, Toggle } from './switch.styles'
 
 interface Props {
 	label?: string
-	labelPlacement?: 'start'|'end'
+	labelPlacement?: 'start' | 'end'
 	checked: boolean
 	onChange: (v: boolean) => void
 }
@@ -15,15 +14,12 @@ export const Switch: FC<Props> = ({ label, labelPlacement = 'end', checked, onCh
 
 	return (
 		<Wrapper labelPlacement={labelPlacement}>
-			<Label>
-				{label}
-			</Label>
+			<span>{label}</span>
 
 			<Toggle>
-				<Input type='checkbox' checked={checked} onChange={handleChange}/>
+				<Input type='checkbox' checked={checked} onChange={handleChange} />
 				<Slider />
 			</Toggle>
 		</Wrapper>
 	)
 }
-

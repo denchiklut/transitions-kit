@@ -1,7 +1,11 @@
+import { StrictMode } from 'react'
+
 export const decorators = [
 	Story => (
-		<div style={{ padding: 10 }}>
-			<Story/>
-		</div>
+		<StrictMode>
+			<div style={{padding: 10}}>
+				<Story/>
+			</div>
+		</StrictMode>
 	)
 ]
