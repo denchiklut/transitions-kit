@@ -6,10 +6,9 @@ import {
 	getAutoHeightDuration,
 	getTransitionProps,
 	useForkRef,
-	isNumber,
 	reflow
 } from '../utils'
-import { getScale, styles } from './grow.utils'
+import {getScale, isWebKit154, styles} from './grow.utils'
 import { GrowProps } from './grow.types'
 
 export const Grow = forwardRef((props: GrowProps, ref) => {
@@ -68,7 +67,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		node.style.transition = [
 			createTransition('opacity', { duration, delay }),
 			createTransition('transform', {
-				duration: isNumber(duration) ? duration * 0.666 : duration,
+				duration: (isWebKit154||typeof duration === 'string') ? duration : duration * 0.666,
 				delay,
 				easing: transitionTimingFunction
 			})
@@ -95,8 +94,8 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		node.style.transition = [
 			createTransition('opacity', { duration, delay }),
 			createTransition('transform', {
-				duration: isNumber(duration) ? duration * 0.666 : duration,
-				delay: isNumber(duration) ? delay || duration * 0.333 : delay,
+				duration: (isWebKit154||typeof duration === 'string') ? duration : duration * 0.666,
+				delay: (isWebKit154||typeof duration === 'string') ? delay : delay || duration * 0.333,
 				easing: transitionTimingFunction
 			})
 		].join(',')
