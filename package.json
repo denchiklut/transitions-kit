@@ -1,6 +1,6 @@
 {
 	"name": "transitions-kit",
-	"version": "1.1.14",
+	"version": "1.1.15",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/denchiklut/transitions-kit"
@@ -17,7 +17,7 @@
 	"description": "A set of predefined transition components",
 	"author": "Karl: ollylut@gmail.com",
 	"scripts": {
-		"build": "rm -rf dist && NODE_ENV=production && rollup -c",
+		"build": "rm -rf dist && NODE_ENV=production && rollup -c --bundleConfigAsCjs",
 		"start": "NODE_ENV=development webpack serve --mode development",
 		"format": "prettier --write \"src/**/*.{ts,tsx}\"",
 		"lint": "eslint --fix --quiet --ext .ts,.tsx ./"
