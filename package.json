@@ -1,6 +1,6 @@
 {
 	"name": "transitions-kit",
-	"version": "1.1.15",
+	"version": "1.1.16",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/denchiklut/transitions-kit"
@@ -10,7 +10,7 @@
 	"main": "dist/index.cjs.js",
 	"module": "dist/index.esm.js",
 	"module.esnext": "dist/esnext.esm.js",
-	"types": "dist/index.d.ts",
+	"types": "dist/@types/index.d.ts",
 	"files": [
 		"dist"
 	],
