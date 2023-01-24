@@ -8,7 +8,7 @@ import {
 	useForkRef,
 	reflow
 } from '../utils'
-import {getScale, isWebKit154, styles} from './grow.utils'
+import { getScale, isWebKit154, styles } from './grow.utils'
 import { GrowProps } from './grow.types'
 
 export const Grow = forwardRef((props: GrowProps, ref) => {
