@@ -67,7 +67,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		node.style.transition = [
 			createTransition('opacity', { duration, delay }),
 			createTransition('transform', {
-				duration: (isWebKit154||typeof duration === 'string') ? duration : duration * 0.666,
+				duration: isWebKit154 || typeof duration === 'string' ? duration : duration * 0.666,
 				delay,
 				easing: transitionTimingFunction
 			})
@@ -94,8 +94,9 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		node.style.transition = [
 			createTransition('opacity', { duration, delay }),
 			createTransition('transform', {
-				duration: (isWebKit154||typeof duration === 'string') ? duration : duration * 0.666,
-				delay: (isWebKit154||typeof duration === 'string') ? delay : delay || duration * 0.333,
+				duration: isWebKit154 || typeof duration === 'string' ? duration : duration * 0.666,
+				delay:
+					isWebKit154 || typeof duration === 'string' ? delay : delay || duration * 0.333,
 				easing: transitionTimingFunction
 			})
 		].join(',')
