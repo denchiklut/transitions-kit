@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react'
-import { TransitionStatus } from 'react-transition-group'
+import type { CSSProperties } from 'react'
+import type { TransitionStatus } from 'react-transition-group'
 
 export const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entering: {

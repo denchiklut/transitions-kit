@@ -1,4 +1,4 @@
-import { TransitionProps } from '../utils'
+import type { TransitionProps } from '../utils'
 
 export interface GrowProps extends Omit<TransitionProps, 'timeout'> {
 	/**
@@ -8,10 +8,6 @@ export interface GrowProps extends Omit<TransitionProps, 'timeout'> {
 	 */
 	appear?: boolean
 	/**
-	 * A single child content element.
-	 */
-	children: JSX.Element
-	/**
 	 * The transition timing function.
 	 * You may specify a single easing or a object containing enter and exit values.
 	 */
@@ -20,7 +16,6 @@ export interface GrowProps extends Omit<TransitionProps, 'timeout'> {
 	 * If `true`, the component will transition in.
 	 */
 	in?: boolean
-
 	/**
 	 * The duration for the transition, in milliseconds.
 	 * You may specify a single timeout for all transitions, or individually with an object.

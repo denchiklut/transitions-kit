@@ -1,5 +1,6 @@
-import { TransitionStatus } from 'react-transition-group'
-import { FC, Ref, CSSProperties, forwardRef } from 'react'
+import { forwardRef } from 'react'
+import type { TransitionStatus } from 'react-transition-group'
+import type { FC, Ref, ReactElement, CSSProperties } from 'react'
 import { createTransition } from '../utils'
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 		state: TransitionStatus
 	}
 	style?: CSSProperties
-	children: JSX.Element
+	children: ReactElement
 }
 
 export const CollapseRoot = forwardRef(({ children, ownerState, style = {} }: Props, ref) => (

@@ -1,14 +1,14 @@
 import { type CSSProperties, cloneElement, forwardRef, useRef } from 'react'
-import { Transition, TransitionStatus } from 'react-transition-group'
+import { Transition, type TransitionStatus } from 'react-transition-group'
 import {
-	duration,
-	ElementWithRef,
+	type ElementWithRef,
 	createTransition,
 	getTransitionProps,
 	useForkRef,
-	reflow
+	reflow,
+	duration
 } from '../utils'
-import { FadeProps } from './fade.types'
+import type { FadeProps } from './fade.types'
 
 const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entering: { opacity: 1 },

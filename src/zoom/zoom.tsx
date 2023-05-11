@@ -1,14 +1,14 @@
 import { cloneElement, forwardRef, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import {
+	type ElementWithRef,
 	createTransition,
-	duration,
-	ElementWithRef,
 	getTransitionProps,
+	useForkRef,
 	reflow,
-	useForkRef
+	duration
 } from '../utils'
-import { ZoomProps } from './zoom.types'
+import type { ZoomProps } from './zoom.types'
 import { styles } from './zoom.utils'
 
 export const Zoom = forwardRef((props: ZoomProps, ref) => {

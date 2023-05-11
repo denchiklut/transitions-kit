@@ -1,5 +1,4 @@
-import { Ref } from 'react'
-import { TransitionProps } from '../utils'
+import type { TransitionProps } from '../utils'
 
 export interface ZoomProps extends TransitionProps {
 	/**
@@ -8,10 +7,6 @@ export interface ZoomProps extends TransitionProps {
 	 * @default true
 	 */
 	appear?: boolean
-	/**
-	 * A single child content element.
-	 */
-	children: JSX.Element & { ref?: Ref<unknown> }
 	/**
 	 * The transition timing function.
 	 * You may specify a single easing or a object containing enter and exit values.

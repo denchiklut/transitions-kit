@@ -1,4 +1,4 @@
-import { ComponentProps, TransitionProps, Options } from './types'
+import type { ComponentProps, TransitionProps, Options } from './types'
 import { duration, easing } from './consts'
 
 export function getTransitionProps(props: ComponentProps, options: Options): TransitionProps {

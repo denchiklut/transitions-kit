@@ -1,10 +1,6 @@
-import { TransitionProps } from '../utils'
+import type { TransitionProps } from '../utils'
 
 export interface CollapseProps extends Omit<TransitionProps, 'timeout'> {
-	/**
-	 * The content node to be collapsed.
-	 */
-	children: JSX.Element
 	/**
 	 * The width (horizontal) or height (vertical) of the container when collapsed.
 	 * @default '0px'

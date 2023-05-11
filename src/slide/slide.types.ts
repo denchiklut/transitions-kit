@@ -1,4 +1,4 @@
-import { TransitionProps } from '../utils'
+import type { TransitionProps } from '../utils'
 
 export interface SlideProps extends TransitionProps {
 	/**
@@ -7,10 +7,6 @@ export interface SlideProps extends TransitionProps {
 	 * @default true
 	 */
 	appear?: boolean
-	/**
-	 * A single child content element.
-	 */
-	children: JSX.Element
 	/**
 	 * An HTML element, or a function that returns one.
 	 * It's used to set the container the Slide is transitioning from.

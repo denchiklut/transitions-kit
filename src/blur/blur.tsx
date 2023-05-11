@@ -1,14 +1,14 @@
 import { cloneElement, forwardRef, useRef } from 'react'
 import { Transition } from 'react-transition-group'
 import {
-	duration,
-	ElementWithRef,
+	type ElementWithRef,
 	createTransition,
 	getTransitionProps,
 	useForkRef,
-	reflow
+	reflow,
+	duration
 } from '../utils'
-import { BlurProps } from './blur.types'
+import type { BlurProps } from './blur.types'
 import { getCSS } from './blur.utils'
 
 export const Blur = forwardRef((props: BlurProps, ref) => {

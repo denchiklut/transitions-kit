@@ -1,15 +1,15 @@
 import { Transition } from 'react-transition-group'
 import { cloneElement, forwardRef, useEffect, useRef } from 'react'
 import {
-	ElementWithRef,
+	type ElementWithRef,
 	createTransition,
 	getAutoHeightDuration,
 	getTransitionProps,
 	useForkRef,
 	reflow
 } from '../utils'
-import { getScale, isWebKit154, styles } from './grow.utils'
-import { GrowProps } from './grow.types'
+import { isWebKit154, styles } from './grow.utils'
+import type { GrowProps } from './grow.types'
 
 export const Grow = forwardRef((props: GrowProps, ref) => {
 	const {
@@ -102,7 +102,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		].join(',')
 
 		node.style.opacity = '0'
-		node.style.transform = getScale(0.75)
+		node.style.transform = 'scale(0.75)'
 
 		onExit?.(node)
 	})
@@ -143,7 +143,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 					ref: handleRef,
 					style: {
 						opacity: 0,
-						transform: getScale(0.75),
+						transform: 'scale(0.75)',
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
 						...styles[state],
 						...style,

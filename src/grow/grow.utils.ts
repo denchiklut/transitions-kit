@@ -1,12 +1,10 @@
-import { CSSProperties } from 'react'
-import { TransitionStatus } from 'react-transition-group'
-
-export const getScale = (value: number) => `scale(${value}, ${value ** 2})`
+import type { CSSProperties } from 'react'
+import type { TransitionStatus } from 'react-transition-group'
 
 export const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entering: {
 		opacity: 1,
-		transform: getScale(1)
+		transform: 'scale(1)'
 	},
 	entered: {
 		opacity: 1,

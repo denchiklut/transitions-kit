@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react'
-import { TransitionStatus } from 'react-transition-group'
+import type { CSSProperties } from 'react'
+import type { TransitionStatus } from 'react-transition-group'
 
 export const getCSS = (radius: number): Partial<Record<TransitionStatus, CSSProperties>> => ({
 	entering: { opacity: 1, filter: 'blur(0)' },

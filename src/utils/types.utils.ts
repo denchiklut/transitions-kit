@@ -1,8 +1,8 @@
-import {
+import type {
 	TransitionProps as _TransitionProps,
 	TransitionActions
 } from 'react-transition-group/Transition'
-import { HTMLAttributes, Ref } from 'react'
+import type { HTMLAttributes, ReactElement, Ref } from 'react'
 
 export type TransitionHandlerKeys =
 	| 'onEnter'
@@ -11,8 +11,6 @@ export type TransitionHandlerKeys =
 	| 'onExit'
 	| 'onExiting'
 	| 'onExited'
-
-export type TransitionHandlerProps = Pick<_TransitionProps, TransitionHandlerKeys>
 
 export type TransitionKeys =
 	| 'in'
@@ -26,6 +24,11 @@ export type TransitionKeys =
 export interface TransitionProps
 	extends TransitionActions,
 		Partial<Pick<_TransitionProps, TransitionKeys>>,
-		HTMLAttributes<HTMLElement> {}
+		HTMLAttributes<HTMLElement> {
+	/**
+	 * A single child content element.
+	 */
+	children: ElementWithRef
+}
 
-export type ElementWithRef = JSX.Element & { ref?: Ref<unknown> }
+export type ElementWithRef = ReactElement & { ref?: Ref<unknown> }

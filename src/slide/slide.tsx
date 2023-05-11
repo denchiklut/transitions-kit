@@ -1,18 +1,18 @@
 import { Transition } from 'react-transition-group'
 import { cloneElement, forwardRef, useCallback, useEffect, useRef } from 'react'
 import {
+	type ElementWithRef,
+	getTransitionProps,
 	createTransition,
 	ownerWindow,
 	reflow,
 	debounce,
 	useForkRef,
 	easing,
-	duration,
-	getTransitionProps,
-	ElementWithRef
+	duration
 } from '../utils'
 import { setTranslateValue } from './slide.utils'
-import { SlideProps } from './slide.types'
+import type { SlideProps } from './slide.types'
 
 export const Slide = forwardRef((props: SlideProps, ref) => {
 	const defaultEasing = {
