@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Grow, type GrowProps } from 'transitions-kit'
 import image from '../../../../assets/thumbnail.jpeg'
 import { Wrapper, Image } from './grow.styles'
@@ -47,7 +47,7 @@ export default {
 	}
 }
 
-const Template: Story<GrowProps> = ({ in: inProp, children, ...props }) => {
+const Template: StoryFn<GrowProps> = ({ in: inProp, children, ...props }) => {
 	const [open, setOpen] = useState(true)
 
 	return (

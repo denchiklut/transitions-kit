@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Collapse, type CollapseProps } from 'transitions-kit'
 import { Row, Content } from './styles'
 import { Switch } from '../switch'
@@ -57,7 +57,7 @@ export default {
 	}
 }
 
-const Template: Story<CollapseProps> = ({
+const Template: StoryFn<CollapseProps> = ({
 	in: inProp,
 	collapsedSize,
 	orientation,

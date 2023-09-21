@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Zoom, type ZoomProps } from 'transitions-kit'
 import image from '../../../../assets/thumbnail.jpeg'
 import { Wrapper, Image } from './zoom.styles'
@@ -47,7 +47,7 @@ export default {
 	}
 }
 
-const Template: Story<ZoomProps> = ({ in: inProp, children, ...props }) => {
+const Template: StoryFn<ZoomProps> = ({ in: inProp, children, ...props }) => {
 	const [open, setOpen] = useState(true)
 
 	return (

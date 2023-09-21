@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Fade, type FadeProps } from 'transitions-kit'
 import image from '../../../../assets/thumbnail.jpeg'
 import { Wrapper, Image } from './fade.styles'
@@ -47,7 +47,7 @@ export default {
 	}
 }
 
-const Template: Story<FadeProps> = ({ in: inProp, children, ...props }) => {
+const Template: StoryFn<FadeProps> = ({ in: inProp, children, ...props }) => {
 	const [open, setOpen] = useState(true)
 
 	return (

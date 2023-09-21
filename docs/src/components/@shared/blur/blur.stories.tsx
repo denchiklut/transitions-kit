@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Blur, type BlurProps } from 'transitions-kit'
 import image from '../../../../assets/thumbnail.jpeg'
 import { Wrapper } from './blur.styles'
@@ -52,7 +52,7 @@ export default {
 	}
 }
 
-const Template: Story<BlurProps> = ({ in: inProp, children, ...props }) => {
+const Template: StoryFn<BlurProps> = ({ in: inProp, children, ...props }) => {
 	const [open, setOpen] = useState(true)
 
 	return (

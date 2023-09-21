@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react'
+import type { StoryFn } from '@storybook/react'
 import { Slide, type SlideProps } from 'transitions-kit'
 import image from '../../../../assets/thumbnail.jpeg'
 import { Wrapper, Image } from './slide.styles'
@@ -56,7 +56,7 @@ export default {
 	}
 }
 
-const Template: Story<SlideProps> = ({ in: inProp, children, ...props }) => {
+const Template: StoryFn<SlideProps> = ({ in: inProp, children, ...props }) => {
 	const [open, setOpen] = useState(true)
 	const ref = useRef<HTMLDivElement>(null)
 
