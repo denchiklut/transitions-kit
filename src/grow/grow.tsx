@@ -28,7 +28,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		timeout = 'auto',
 		...other
 	} = props
-	const timer = useRef<NodeJS.Timer>()
+	const timer = useRef<number>()
 	const autoTimeout = useRef<number>()
 	const nodeRef = useRef<HTMLElement>(null)
 	const foreignRef = useForkRef((children as ElementWithRef).ref, ref)
@@ -109,7 +109,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 
 	const handleAddEndListener = (next: () => void) => {
 		if (timeout === 'auto') {
-			timer.current = setTimeout(next, autoTimeout.current || 0)
+			timer.current = window.setTimeout(next, autoTimeout.current || 0)
 		}
 
 		if (nodeRef.current) {

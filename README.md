@@ -53,3 +53,7 @@ Implementation is based on Mui source code.
     <img src='https://picsum.photos/400' />
 </Blur>
 ```
+
+### Child requirements:
+- Forward the ref: The transition components require the first child element to forward its ref to the DOM node.
+- Single element: The transition components require only one child element (React.Fragment is not allowed).

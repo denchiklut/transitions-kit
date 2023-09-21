@@ -30,7 +30,7 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		collapsedSize: collapsedSizeProp
 	}
 
-	const timer = useRef<NodeJS.Timer>()
+	const timer = useRef<number>()
 	const nodeRef = useRef<HTMLElement>(null)
 	const handleRef = useForkRef(nodeRef, ref)
 	const wrapperRef = useRef<HTMLElement>(null)
@@ -131,7 +131,7 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 
 	const handleAddEndListener = (next: () => void) => {
 		if (timeout === 'auto') {
-			timer.current = setTimeout(next, Number(autoTransitionDuration.current) || 0)
+			timer.current = window.setTimeout(next, Number(autoTransitionDuration.current) || 0)
 		}
 
 		if (nodeRef.current) {
