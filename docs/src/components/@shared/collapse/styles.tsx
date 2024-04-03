@@ -9,7 +9,9 @@ export const Box = styled.div`
 	border-radius: 5px;
 	background: #7f7f7f;
 	box-sizing: border-box;
-	box-shadow: rgba(50, 50, 93, 0.25) 0 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	box-shadow:
+		rgba(50, 50, 93, 0.25) 0 6px 12px -2px,
+		rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 	position: relative;
 `
 
@@ -24,7 +26,8 @@ const Svg = styled.svg`
 	width: 100%;
 	height: 100%;
 	fill: #cec6e4;
-	box-shadow: rgba(50, 50, 93, 0.25) 0 30px 60px -12px inset,
+	box-shadow:
+		rgba(50, 50, 93, 0.25) 0 30px 60px -12px inset,
 		rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 `
 
