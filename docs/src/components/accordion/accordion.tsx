@@ -1,8 +1,8 @@
-import { Children, FC } from 'react'
+import { Children, type FC } from 'react'
 import { Summary, Details, Icon, Wrapper } from './styles'
 import { Collapse } from 'transitions-kit'
 
-interface Props {
+export interface Props {
 	expanded?: boolean
 	children: JSX.Element[]
 	onChange?: (newExpanded: boolean) => void
@@ -10,11 +10,9 @@ interface Props {
 export const Accordion: FC<Props> = ({ children: childrenProp, expanded = false, onChange }) => {
 	const [summary, ...children] = Children.toArray(childrenProp)
 
-	const handleChange = () => onChange?.(!expanded)
-
 	return (
 		<Wrapper>
-			<Summary onClick={handleChange}>
+			<Summary onClick={() => onChange?.(!expanded)}>
 				<Icon expanded={expanded} className='material-symbols-rounded'>
 					arrow_forward_ios
 				</Icon>
