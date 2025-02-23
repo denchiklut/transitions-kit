@@ -27,7 +27,7 @@ yarn add transitions-kit
 import { Fade, Slide, Collapse, Grow, Blur } from 'transitions-kit';
 import { useState } from 'react'
 
-export function Example() {
+export default function() {
   const [open, setOpen] = useState(false)
     
   return (
@@ -59,7 +59,7 @@ const FRUITS = [
   '🍉 Watermelon'
 ];
 
-export function TransitionGroupExample() {
+export default function() {
   const [fruitsInBasket, setFruitsInBasket] = useState(FRUITS.slice(0, 3))
 
   const handleAddFruit = () => {
@@ -122,19 +122,19 @@ To get more information visit the `react-transition-group` Transition [documenta
 
 ## `<Collapse />`
 ```tsx
-import { Fade, Slide, Collapse, Grow, Blur } from 'transitions-kit';
+import { Collapse } from 'transitions-kit';
 import { useState } from 'react'
 
-export function Example() {
+export default function() {
   const [open, setOpen] = useState(false)
 
   return (
     <div>
       <button onClick={() => setOpen(!open)}>toggle</button>
 
-      <Fade in={open} mountOnEnter unmountOnExit>
+      <Collapse in={open} orientation='vertical' collapsedSize='0px'>
         <img src='https://picsum.photos/400' />
-      </Fade>
+      </Collapse>
     </div>
   )
 }
@@ -154,7 +154,7 @@ export function Example() {
 import { Slide } from 'transitions-kit';
 import { useState } from 'react'
 
-export function Example() {
+export default function() {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   
