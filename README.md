@@ -8,7 +8,16 @@
 A set of predefined transition components build on top of `react-transition-gorup`
 Implementation is based on Mui source code.
 
-[![Edit transitions-kit](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/transitions-kit?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit transitions-kit](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/transitions-kit-fr6dgx)
+
+## Installation
+ ```
+ npm i transitions-kit
+ ```
+Or via yarn
+```
+yarn add transitions-kit
+```
 
 ## Usage example
 
