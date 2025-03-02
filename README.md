@@ -1,9 +1,10 @@
 ## TransitionsKit
 
-[![Storybook](https://img.shields.io/badge/-Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white)](https://denchiklut.github.io/transitions-kit)
-[![npm version](https://img.shields.io/npm/v/transitions-kit.svg?style=for-the-badge)](https://www.npmjs.com/package/transitions-kit)
-[![npm downloads](https://img.shields.io/npm/dm/transitions-kit.svg?style=for-the-badge)](https://www.npmjs.com/package/transitions-kit)
-[![Stars](https://img.shields.io/github/stars/denchiklut/transitions-kit?style=for-the-badge)](https://github.com/denchiklut/transitions-kit)
+[![NPM Version](https://img.shields.io/npm/v/transitions-kit)](https://www.npmjs.com/package/transitions-kit) 
+[![storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://denchiklut.github.io/transitions-kit) 
+[![NPM Downloads](https://img.shields.io/npm/dw/transitions-kit)](https://www.npmjs.com/package/transitions-kit) 
+[![GitHub Repo stars](https://img.shields.io/github/stars/denchiklut/transitions-kit)](https://github.com/denchiklut/transitions-kit?tab=readme-ov-file)
+
 
 A set of predefined transition components build on top of `react-transition-gorup`
 Implementation is based on Mui source code.
@@ -149,6 +150,9 @@ export default function() {
 ---
 
 ## `<Slide />`
+### Slide relative to a container
+
+The Slide component also accepts `container` prop, which is a reference to a DOM node. If this prop is set, the Slide component will slide from the edge of that DOM node.
 
 ```tsx
 import { Slide } from 'transitions-kit';
