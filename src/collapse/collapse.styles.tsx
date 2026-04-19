@@ -1,6 +1,7 @@
+import type { CSSProperties, FC, ReactElement, Ref } from 'react'
 import { forwardRef } from 'react'
 import type { TransitionStatus } from 'react-transition-group'
-import type { FC, Ref, ReactElement, CSSProperties } from 'react'
+
 import { createTransition } from '../utils'
 
 interface Props {
@@ -46,7 +47,7 @@ export const CollapseRoot = forwardRef(({ children, ownerState, style = {} }: Pr
 	</div>
 ))
 
-export const CollapseWrapper = forwardRef(({ children, ownerState, style }: Props, ref) => (
+export const CollapseWrapper = forwardRef(({ children, ownerState }: Props, ref) => (
 	<div
 		ref={ref as Ref<HTMLDivElement>}
 		style={{

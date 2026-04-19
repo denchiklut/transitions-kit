@@ -1,4 +1,4 @@
-import { type Ref, type RefCallback, type MutableRefObject, useMemo } from 'react'
+import { type MutableRefObject, type Ref, type RefCallback, useMemo } from 'react'
 
 const setRef = <T>(
 	ref: MutableRefObject<T | null> | ((instance: T | null) => void) | null | undefined,

@@ -1,10 +1,9 @@
 export const debounce = (func: Function, wait = 166) => {
-	let timeout: NodeJS.Timeout
+	let timeout: number
 
-	function debounced(...args: unknown[]) {
+	function debounced(this: unknown, ...args: unknown[]) {
 		const later = () => {
-			// @ts-ignore
-			func.apply(this as any, args)
+			func.apply(this, args)
 		}
 		clearTimeout(timeout)
 		timeout = setTimeout(later, wait)

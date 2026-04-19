@@ -1,15 +1,25 @@
-import { Transition } from 'react-transition-group'
-import { cloneElement, forwardRef, useEffect, useRef } from 'react'
 import {
-	type ElementWithRef,
+	type CSSProperties,
+	cloneElement,
+	forwardRef,
+	type ReactElement,
+	useEffect,
+	useRef
+} from 'react'
+import { Transition } from 'react-transition-group'
+
+import {
 	createTransition,
+	type ElementWithRef,
 	getAutoHeightDuration,
 	getTransitionProps,
-	useForkRef,
-	reflow
+	reflow,
+	useForkRef
 } from '../utils'
-import { isWebKit154, styles } from './grow.utils'
 import type { GrowProps } from './grow.types'
+import { isWebKit154, styles } from './grow.utils'
+
+type ChildElement = ReactElement<{ style?: CSSProperties; [key: string]: unknown }>
 
 export const Grow = forwardRef((props: GrowProps, ref) => {
 	const {
@@ -28,8 +38,8 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 		timeout = 'auto',
 		...other
 	} = props
-	const timer = useRef<number>()
-	const autoTimeout = useRef<number>()
+	const timer = useRef<number | undefined>(undefined)
+	const autoTimeout = useRef<number | undefined>(undefined)
 	const nodeRef = useRef<HTMLElement>(null)
 	const foreignRef = useForkRef((children as ElementWithRef).ref, ref)
 	const handleRef = useForkRef(nodeRef, foreignRef)
@@ -56,7 +66,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 			easing: transitionTimingFunction
 		} = getTransitionProps({ style, timeout, easing }, { mode: 'enter' })
 
-		let duration
+		let duration: string | number
 		if (timeout === 'auto') {
 			duration = getAutoHeightDuration(node.clientHeight)
 			autoTimeout.current = duration
@@ -83,7 +93,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 			easing: transitionTimingFunction
 		} = getTransitionProps({ style, timeout, easing }, { mode: 'exit' })
 
-		let duration
+		let duration: string | number
 		if (timeout === 'auto') {
 			duration = getAutoHeightDuration(node.clientHeight)
 			autoTimeout.current = duration
@@ -139,7 +149,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 			{...other}
 		>
 			{state =>
-				cloneElement(children, {
+				cloneElement(children as ChildElement, {
 					ref: handleRef,
 					style: {
 						opacity: 0,
@@ -147,7 +157,7 @@ export const Grow = forwardRef((props: GrowProps, ref) => {
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
 						...styles[state],
 						...style,
-						...children.props.style
+						...(children as ChildElement).props.style
 					}
 				})
 			}

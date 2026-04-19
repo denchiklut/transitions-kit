@@ -9,23 +9,32 @@ on:
       - main
 
 jobs:
-  yarn:
-    uses: ./.github/workflows/yarn-cache.yml
+  pnpm:
+    uses: ./.github/workflows/pnpm-cache.yml
 
   lint:
-    needs: yarn
+    needs: pnpm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
 
-      - run: yarn lint
+      - run: pnpm lint
+
+  typecheck:
+      needs: pnpm
+      runs-on: ubuntu-latest
+      steps:
+          - uses: actions/checkout@v4
+          - uses: ./.github/actions/setup
+
+          - run: pnpm typecheck
 
   build:
-    needs: yarn
+    needs: pnpm
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
 
-      - run: yarn build
+      - run: pnpm build

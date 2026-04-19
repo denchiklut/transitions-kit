@@ -1,18 +1,29 @@
-import { Transition } from 'react-transition-group'
-import { cloneElement, forwardRef, useCallback, useEffect, useRef } from 'react'
 import {
-	type ElementWithRef,
-	getTransitionProps,
+	type CSSProperties,
+	cloneElement,
+	forwardRef,
+	type ReactElement,
+	useCallback,
+	useEffect,
+	useRef
+} from 'react'
+import { Transition } from 'react-transition-group'
+
+import {
 	createTransition,
+	debounce,
+	duration,
+	type ElementWithRef,
+	easing,
+	getTransitionProps,
 	ownerWindow,
 	reflow,
-	debounce,
-	useForkRef,
-	easing,
-	duration
+	useForkRef
 } from '../utils'
-import { setTranslateValue } from './slide.utils'
 import type { SlideProps } from './slide.types'
+import { setTranslateValue } from './slide.utils'
+
+type ChildElement = ReactElement<{ style?: CSSProperties; [key: string]: unknown }>
 
 export const Slide = forwardRef((props: SlideProps, ref) => {
 	const defaultEasing = {
@@ -154,12 +165,12 @@ export const Slide = forwardRef((props: SlideProps, ref) => {
 			{...other}
 		>
 			{state =>
-				cloneElement(children, {
+				cloneElement(children as ChildElement, {
 					ref: handleRef,
 					style: {
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
 						...style,
-						...children.props.style
+						...(children as ChildElement).props.style
 					}
 				})
 			}

@@ -1,5 +1,5 @@
-import type { SlideProps } from './slide.types'
 import { ownerWindow } from '../utils'
+import type { SlideProps } from './slide.types'
 
 function getTranslateValue(
 	direction: SlideProps['direction'],

@@ -1,6 +1,7 @@
-import { Transition } from 'react-transition-group'
 import { forwardRef, useEffect, useRef } from 'react'
-import { duration, getAutoHeightDuration, getTransitionProps, useForkRef, reflow } from '../utils'
+import { Transition } from 'react-transition-group'
+
+import { duration, getAutoHeightDuration, getTransitionProps, reflow, useForkRef } from '../utils'
 import { CollapseRoot, CollapseWrapper, CollapseWrapperInner } from './collapse.styles'
 import type { CollapseProps } from './collapse.types'
 
@@ -30,11 +31,11 @@ export const Collapse = forwardRef((props: CollapseProps, ref) => {
 		collapsedSize: collapsedSizeProp
 	}
 
-	const timer = useRef<number>()
+	const timer = useRef<number | undefined>(undefined)
 	const nodeRef = useRef<HTMLElement>(null)
 	const handleRef = useForkRef(nodeRef, ref)
 	const wrapperRef = useRef<HTMLElement>(null)
-	const autoTransitionDuration = useRef<string | number>()
+	const autoTransitionDuration = useRef<string | number | undefined>(undefined)
 	const collapsedSize =
 		typeof collapsedSizeProp === 'number' ? `${collapsedSizeProp}px` : collapsedSizeProp
 	const isHorizontal = orientation === 'horizontal'

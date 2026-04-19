@@ -1,5 +1,5 @@
-import type { ComponentProps, TransitionProps, Options } from './types'
 import { duration, easing } from './consts'
+import type { ComponentProps, Options, TransitionProps } from './types'
 
 export function getTransitionProps(props: ComponentProps, options: Options): TransitionProps {
 	const { timeout, easing, style = {} } = props

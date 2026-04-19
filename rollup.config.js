@@ -1,11 +1,12 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import commonjs from '@rollup/plugin-commonjs'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import { terser } from 'rollup-plugin-terser'
+
 import pkg from './package.json'
 
-export default  {
+export default {
 	input: 'src/index.ts',
 	output: [
 		{
@@ -33,4 +34,3 @@ export default  {
 	],
 	external: Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies))
 }
-

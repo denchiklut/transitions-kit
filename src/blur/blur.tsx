@@ -1,15 +1,18 @@
-import { cloneElement, forwardRef, useRef } from 'react'
+import { type CSSProperties, cloneElement, forwardRef, type ReactElement, useRef } from 'react'
 import { Transition } from 'react-transition-group'
+
 import {
-	type ElementWithRef,
 	createTransition,
+	duration,
+	type ElementWithRef,
 	getTransitionProps,
-	useForkRef,
 	reflow,
-	duration
+	useForkRef
 } from '../utils'
 import type { BlurProps } from './blur.types'
 import { getCSS } from './blur.utils'
+
+type ChildElement = ReactElement<{ style?: CSSProperties; [key: string]: unknown }>
 
 export const Blur = forwardRef((props: BlurProps, ref) => {
 	const defaultTimeout = {
@@ -91,14 +94,14 @@ export const Blur = forwardRef((props: BlurProps, ref) => {
 			{...other}
 		>
 			{state =>
-				cloneElement(children, {
+				cloneElement(children as ChildElement, {
 					ref: handleRef,
 					style: {
 						opacity: 0,
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
 						...getCSS(radius)[state],
 						...style,
-						...children.props.style
+						...(children as ChildElement).props.style
 					}
 				})
 			}

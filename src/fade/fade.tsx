@@ -1,14 +1,17 @@
-import { type CSSProperties, cloneElement, forwardRef, useRef } from 'react'
+import { type CSSProperties, cloneElement, forwardRef, type ReactElement, useRef } from 'react'
 import { Transition, type TransitionStatus } from 'react-transition-group'
+
 import {
-	type ElementWithRef,
 	createTransition,
+	duration,
+	type ElementWithRef,
 	getTransitionProps,
-	useForkRef,
 	reflow,
-	duration
+	useForkRef
 } from '../utils'
 import type { FadeProps } from './fade.types'
+
+type ChildElement = ReactElement<{ style?: CSSProperties; [key: string]: unknown }>
 
 const styles: Partial<Record<TransitionStatus, CSSProperties>> = {
 	entering: { opacity: 1 },
@@ -95,14 +98,14 @@ export const Fade = forwardRef((props: FadeProps, ref) => {
 			{...other}
 		>
 			{state =>
-				cloneElement(children, {
+				cloneElement(children as ChildElement, {
 					ref: handleRef,
 					style: {
 						opacity: 0,
 						visibility: state === 'exited' && !inProp ? 'hidden' : undefined,
 						...styles[state],
 						...style,
-						...children.props.style
+						...(children as ChildElement).props.style
 					}
 				})
 			}

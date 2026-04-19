@@ -1,8 +1,8 @@
+import type { HTMLAttributes, ReactElement, Ref } from 'react'
 import type {
 	TransitionProps as _TransitionProps,
 	TransitionActions
 } from 'react-transition-group/Transition'
-import type { HTMLAttributes, ReactElement, Ref } from 'react'
 
 export type TransitionHandlerKeys =
 	| 'onEnter'
