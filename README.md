@@ -47,8 +47,7 @@ export default function() {
 To animate a component when it is mounted or unmounted, you can use the `<TransitionGroup />` component from `react-transition-group`. As components are added or removed, the in prop is toggled automatically by TransitionGroup.
 
 ```tsx
-import { Collapse } from 'transitions-kit'
-import { TransitionGroup } from 'react-transition-group'
+import { TransitionGroup, Collapse } from 'transitions-kit'
 import { useState } from 'react'
 
 
