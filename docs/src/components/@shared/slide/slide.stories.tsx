@@ -1,9 +1,10 @@
 import type { StoryFn } from '@storybook/react'
-import { Slide, type SlideProps } from 'transitions-kit'
-import image from '../../../../assets/thumbnail.jpeg'
-import { Wrapper, Image } from './slide.styles'
-import { Switch } from '../switch'
 import { useRef, useState } from 'react'
+import { Slide, type SlideProps } from 'transitions-kit'
+
+import image from '../../../../assets/thumbnail.jpeg'
+import { Switch } from '../switch'
+import { Image, Wrapper } from './slide.styles'
 
 export default {
 	component: Slide,
@@ -93,7 +94,7 @@ const Template: StoryFn<SlideProps> = ({ in: inProp, children, ...props }) => {
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<SlideProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

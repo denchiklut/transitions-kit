@@ -1,5 +1,5 @@
+import type { Decorator, Preview } from '@storybook/react'
 import { StrictMode } from 'react'
-import type { Preview, Decorator } from '@storybook/react'
 
 export const decorators: Decorator[] = [
 	Story => (

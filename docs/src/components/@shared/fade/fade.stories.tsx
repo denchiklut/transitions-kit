@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Fade, type FadeProps } from 'transitions-kit'
+
 import image from '../../../../assets/thumbnail.jpeg'
-import { Wrapper, Image } from './fade.styles'
 import { Switch } from '../switch'
+import { Image, Wrapper } from './fade.styles'
 
 export default {
 	component: Fade,
@@ -61,7 +62,7 @@ const Template: StoryFn<FadeProps> = ({ in: inProp, children, ...props }) => {
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<FadeProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

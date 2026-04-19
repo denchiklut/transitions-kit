@@ -1,8 +1,9 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Collapse, type CollapseProps } from 'transitions-kit'
-import { Row, Content } from './styles'
+
 import { Switch } from '../switch'
+import { Content, Row } from './styles'
 
 export default {
 	component: Collapse,
@@ -95,7 +96,7 @@ const Template: StoryFn<CollapseProps> = ({
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<CollapseProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

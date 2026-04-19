@@ -1,5 +1,6 @@
-import type { FC, ChangeEvent } from 'react'
-import { Input, Slider, Wrapper, Toggle } from './switch.styles'
+import type { ChangeEvent, FC } from 'react'
+
+import { Input, Slider, Toggle, Wrapper } from './switch.styles'
 
 interface Props {
 	label?: string

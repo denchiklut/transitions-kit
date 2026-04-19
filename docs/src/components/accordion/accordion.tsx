@@ -1,10 +1,11 @@
-import { Children, type FC } from 'react'
-import { Summary, Details, Icon, Wrapper } from './styles'
+import { Children, type FC, type ReactElement } from 'react'
 import { Collapse } from 'transitions-kit'
+
+import { Details, Icon, Summary, Wrapper } from './styles'
 
 export interface Props {
 	expanded?: boolean
-	children: JSX.Element[]
+	children: ReactElement[]
 	onChange?: (newExpanded: boolean) => void
 }
 export const Accordion: FC<Props> = ({ children: childrenProp, expanded = false, onChange }) => {

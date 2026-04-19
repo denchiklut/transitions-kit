@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Zoom, type ZoomProps } from 'transitions-kit'
+
 import image from '../../../../assets/thumbnail.jpeg'
-import { Wrapper, Image } from './zoom.styles'
 import { Switch } from '../switch'
+import { Image, Wrapper } from './zoom.styles'
 
 export default {
 	component: Zoom,
@@ -61,7 +62,7 @@ const Template: StoryFn<ZoomProps> = ({ in: inProp, children, ...props }) => {
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<ZoomProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

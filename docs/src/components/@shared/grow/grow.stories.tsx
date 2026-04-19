@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Grow, type GrowProps } from 'transitions-kit'
+
 import image from '../../../../assets/thumbnail.jpeg'
-import { Wrapper, Image } from './grow.styles'
 import { Switch } from '../switch'
+import { Image, Wrapper } from './grow.styles'
 
 export default {
 	component: Grow,
@@ -61,7 +62,7 @@ const Template: StoryFn<GrowProps> = ({ in: inProp, children, ...props }) => {
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<GrowProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
 import { Blur, type BlurProps } from 'transitions-kit'
+
 import image from '../../../../assets/thumbnail.jpeg'
-import { Wrapper } from './blur.styles'
 import { Switch } from '../switch'
+import { Wrapper } from './blur.styles'
 
 export default {
 	component: Blur,
@@ -70,7 +71,7 @@ const Template: StoryFn<BlurProps> = ({ in: inProp, children, ...props }) => {
 	)
 }
 
-export const Basic = Template.bind({})
+export const Basic: StoryFn<BlurProps> = Template.bind({})
 Basic.parameters = {
 	docs: {
 		source: {

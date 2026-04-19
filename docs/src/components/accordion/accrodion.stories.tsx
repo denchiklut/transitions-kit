@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import type { StoryFn } from '@storybook/react'
+import { useState } from 'react'
+
 import { Accordion, type Props } from './accordion'
 
 export default {
@@ -49,5 +50,5 @@ const MultipleTemplate: StoryFn<Props> = props => {
 	)
 }
 
-export const Basic = BasicTemplate.bind({})
-export const Multiple = MultipleTemplate.bind({})
+export const Basic: StoryFn<Props> = BasicTemplate.bind({})
+export const Multiple: StoryFn<Props> = MultipleTemplate.bind({})
